@@ -1,8 +1,8 @@
-FROM node:16.13.1-alpine3.15
+FROM node:16-alpine
 WORKDIR '/app'
 COPY package*.json ./
 #RUN apk add --update g++ make python3 py3-pip 
-RUN apk add --update imagemagick
+#RUN apk add --update imagemagick
 RUN npm install
 COPY . .
-CMD ["node","bot.js"]
+CMD ["node","index.js"]
