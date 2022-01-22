@@ -220,3 +220,5 @@ cron.schedule('0 9 * * *', async () => {
         console.error(err);
     });*/
 });
+
+console.log('cron starting');
