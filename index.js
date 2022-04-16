@@ -1,7 +1,7 @@
 var cron = require('node-cron');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-cron.schedule('10 9 * * *', async () => {
+cron.schedule('0 9 * * *', async () => {
     /*await fetch('https://www.google.com')
     .then(response => {
         // Handle response
@@ -221,6 +221,9 @@ cron.schedule('10 9 * * *', async () => {
     }).catch(err => {
         console.error(err);
     });*/
+});
+
+cron.schedule('0,50-59 15-17 * * *', async () => {
 });
 
 console.log('cron starting');
