@@ -244,6 +244,10 @@ cron.schedule('0,50-59 15-17 * * *', async () => {
       const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
       const responsetext = await response.text();
       console.log(responsetext);
+      if(responsetext == "success"){
+        //log success
+        console.log("successfull");
+      }
     }
   }
 });
