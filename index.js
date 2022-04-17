@@ -224,6 +224,35 @@ cron.schedule('0 9 * * *', async () => {
 });
 
 cron.schedule('0,50-59 15-17 * * *', async () => {
+  //fetch https://lotto.teamquadb.in.th/aday.php
+  /*const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
+  const responsetext = await response.text();
+  console.log(responsetext);*/
+  //fetch https://thai-lottery1.p.rapidapi.com/?date=17042565 with headers
+  const response = await fetch('https://thai-lottery1.p.rapidapi.com/?date=17042565', {
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-host": "thai-lottery1.p.rapidapi.com",
+        "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137"
+    }
+  });
+  const responsejson = await response.json();
+  console.log(responsejson);
+  //if responsejson[0][1] != 0 or XXXXXX
+  if(responsejson.status == "success" || responsejson.status == 200){
+    if(responsejson[0][1] != '0' && responsejson[0][1] != 0 && responsejson[0][1] != "XXXXXX"){
+      const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
+      const responsetext = await response.text();
+      console.log(responsetext);
+    }
+  }
+});
+
+cron.schedule('0 11 * * *', async () => {
+  //fetch https://lotto.teamquadb.in.th/aday.php
+  const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
+  const responsetext = await response.text();
+  console.log(responsetext);
 });
 
 console.log('cron starting');
