@@ -229,7 +229,13 @@ cron.schedule('0,50-59 15-17 * * *', async () => {
   const responsetext = await response.text();
   console.log(responsetext);*/
   //fetch https://thai-lottery1.p.rapidapi.com/?date=17042565 with headers
-  const response = await fetch('https://thai-lottery1.p.rapidapi.com/?date=17042565', {
+  //get todays date format DDMMYYYY with convert year to buddhist year
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear()+543;
+  var todaydate = dd + mm + yyyy;
+  const response = await fetch('https://thai-lottery1.p.rapidapi.com/?date='+todaydate, {
     "method": "GET",
     "headers": {
         "x-rapidapi-host": "thai-lottery1.p.rapidapi.com",
@@ -237,9 +243,10 @@ cron.schedule('0,50-59 15-17 * * *', async () => {
     }
   });
   const responsejson = await response.json();
-  console.log(responsejson);
+  //console.log(responsejson);
   //if responsejson[0][1] != 0 or XXXXXX
   if(responsejson.status == "success" || responsejson.status == 200){
+    console.log(responsejson[0][1]);
     if(responsejson[0][1] != '0' && responsejson[0][1] != 0 && responsejson[0][1] != "XXXXXX"){
       const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
       const responsetext = await response.text();
