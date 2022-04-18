@@ -242,10 +242,11 @@ cron.schedule('0,50-59 15-17 * * *', async () => {
         "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137"
     }
   });
+  console.log(response.status);
   const responsejson = await response.json();
   //console.log(responsejson);
   //if responsejson[0][1] != 0 or XXXXXX
-  if(responsejson.status == "success" || responsejson.status == 200){
+  if(response.status == "success" || response.status == 200){
     console.log(responsejson[0][1]);
     if(responsejson[0][1] != '0' && responsejson[0][1] != 0 && responsejson[0][1] != "XXXXXX"){
       const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
