@@ -3,10 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   node-cron: ^3.0.1
   node-fetch: ^3.2.6
+  uuid: ^8.3.2
 
 dependencies:
   node-cron: 3.0.1
   node-fetch: 3.2.6
+  uuid: 8.3.2
 
 packages:
 
@@ -47,6 +49,11 @@ packages:
       data-uri-to-buffer: 4.0.0
       fetch-blob: 3.1.5
       formdata-polyfill: 4.0.10
+    dev: false
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: false
 
   /web-streams-polyfill/3.2.1:
