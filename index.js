@@ -223,7 +223,7 @@ cron.schedule('0 9 * * *', async () => {
     });*/
 });
 
-cron.schedule('0,50-59 15-17 * * *', async () => {
+cron.schedule('0-10,50-59 15-17 * * *', async () => {
   //fetch https://lotto.teamquadb.in.th/aday.php
   /*const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
   const responsetext = await response.text();
@@ -262,9 +262,13 @@ cron.schedule('0,50-59 15-17 * * *', async () => {
 
 cron.schedule('0 11 * * *', async () => {
   //fetch https://lotto.teamquadb.in.th/aday.php
-  const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
-  const responsetext = await response.text();
-  console.log(responsetext);
+  const today = await fetch('https://lotapi3.pwisetthon.com/reto')
+  const todayjson = await today.text();
+  if(todayjson != "no"){
+    const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
+    const responsetext = await response.text();
+    console.log(responsetext);
+  }
 });
 
 console.log('cron starting');
