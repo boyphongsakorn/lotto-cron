@@ -271,10 +271,10 @@ cron.schedule('0 11 * * *', async () => {
   }
 });
 
-cron.schedule('0 9 * * 0', async () => {
+cron.schedule('30 10 * * 0', async () => {
   const weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
   const weeknewsjson = await weeknews.json();
-  var raw = JSON.stringify({
+  var raw = {
     "type": "bubble",
     "size": "giga",
     "body": {
@@ -494,7 +494,7 @@ cron.schedule('0 9 * * 0', async () => {
       ],
       "paddingAll": "none"
     }
-  });
+  };
   raw = JSON.stringify({
     "messages": [
       {
