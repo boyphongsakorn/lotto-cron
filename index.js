@@ -223,7 +223,7 @@ cron.schedule('0 9 * * *', async () => {
   });*/
 });
 
-cron.schedule('0-10,50-59 15-17 * * *', async () => {
+cron.schedule('0-10,50-59 14-17 * * *', async () => {
   //fetch https://lotto.teamquadb.in.th/aday.php
   /*const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
   const responsetext = await response.text();
@@ -255,6 +255,117 @@ cron.schedule('0-10,50-59 15-17 * * *', async () => {
       if (responsetext == "success") {
         //log success
         console.log("successfull");
+      }
+    }
+    if (responsejson[8][100] != '0' && responsejson[8][100] != 0 && responsejson[8][100] != "XXXXXX") {
+      const youtubeapi = await fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&channelId=UC0xykk-LCkhdxjFl2gdMkkQ&order=date&key=' + process.env.YOUTUBE_API_KEY);
+      const youtubeapijson = await youtubeapi.json();
+      if (youtubeapijson.pageInfo.totalResults > 0) {
+        if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
+          var raw = {
+            "type": "bubble",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "image",
+                      "url": youtubeapijson.items[0].snippet.thumbnails.default.url,
+                      "size": "full",
+                      "aspectMode": "cover",
+                      "aspectRatio": "16:9",
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": "LIVE",
+                          "size": "xs",
+                          "color": "#ffffff",
+                          "align": "center",
+                          "gravity": "center"
+                        }
+                      ],
+                      "backgroundColor": "#EC3D44",
+                      "paddingAll": "2px",
+                      "paddingStart": "4px",
+                      "paddingEnd": "4px",
+                      "flex": 0,
+                      "position": "absolute",
+                      "offsetStart": "18px",
+                      "offsetTop": "18px",
+                      "cornerRadius": "100px",
+                      "width": "48px",
+                      "height": "25px"
+                    }
+                  ]
+                }
+              ],
+              "paddingAll": "0px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "contents": [],
+                          "size": "xl",
+                          "wrap": true,
+                          "text": youtubeapijson.items[0].snippet.title,
+                          "color": "#ffffff",
+                          "weight": "bold",
+                          "maxLines": 1
+                        },
+                        {
+                          "type": "text",
+                          "text": "เริ่มแล้วการถ่ายทอดสด สลากกินแบ่งฯ",
+                          "color": "#ffffffcc",
+                          "size": "sm"
+                        }
+                      ],
+                      "spacing": "sm"
+                    }
+                  ]
+                }
+              ],
+              "paddingAll": "20px",
+              "backgroundColor": "#464F69"
+            }
+          }
+
+          raw = JSON.stringify({
+            "messages": [
+              {
+                "type": "flex",
+                "altText": "เริ่มแล้ว! การถ่ายทอดสดสลากกินแบ่งฯ ประจำงวดนี้",
+                "contents": {
+                  "type": "carousel",
+                  "contents": [raw]
+                }
+              }
+            ]
+          })
+
+          const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+          const responselinejson = await responseline.json();
+          console.log(responselinejson);
+        }
       }
     }
   }
