@@ -606,11 +606,17 @@ cron.schedule('30 10 * * 0', async () => {
       "paddingAll": "none"
     }
   };
+  const today = await fetch('https://lotapi.pwisetthon.com/reto');
+  const todaytext = await today.text();
+  let altText = "ข่าวสลากฯอาทิตย์นี้";
+  if(todaytext == 'yes'){
+    altText = "ข่าวเลขเด็ดในงวดนี้";
+  }
   raw = JSON.stringify({
     "messages": [
       {
         "type": "flex",
-        "altText": "ข่าวสลากฯอาทิตย์นี้",
+        "altText": altText,
         "contents": {
           "type": "carousel",
           "contents": [raw]
