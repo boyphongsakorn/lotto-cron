@@ -266,6 +266,12 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       const youtubeapijson = await youtubeapi.json();
       if (youtubeapijson.pageInfo.totalResults > 0) {
         if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
+          var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.default.url;
+          if(youtubeapijson.items[0].snippet.thumbnails.high == undefined){
+            youtubeimage = youtubeapijson.items[0].snippet.thumbnails.medium.url;
+          }else if(youtubeapijson.items[0].snippet.thumbnails.medium == undefined){
+            youtubeimage = youtubeapijson.items[0].snippet.thumbnails.high.url;
+          }
           var raw = {
             "type": "bubble",
             "action": {
@@ -283,7 +289,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
                   "contents": [
                     {
                       "type": "image",
-                      "url": youtubeapijson.items[0].snippet.thumbnails.default.url,
+                      "url": youtubeimage,
                       "size": "full",
                       "aspectMode": "cover",
                       "aspectRatio": "16:9",
