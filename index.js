@@ -257,6 +257,9 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
         //log success
         console.log("successfull");
       }
+    } else if(responsejson[0][1] == '0' || responsejson[0][1] == 0){
+      //remove last.txt file
+      fs.unlinkSync('./last.txt');
     }
     if (responsejson[8][100] != '0' && responsejson[8][100] != 0 && responsejson[8][100] != "XXXXXX" && responsejson[8][100] != "xxxxxx") {
       const youtubeapi = await fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&channelId=UC0xykk-LCkhdxjFl2gdMkkQ&order=date&key=' + process.env.YOUTUBE_API_KEY);
