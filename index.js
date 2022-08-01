@@ -378,14 +378,10 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
           })
 
           if(!fs.existsSync('./last.txt')) {
-            const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+            /*const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
             const responselinejson = await responseline.json();
             console.log(responselinejson);
-          }
-
-          if (responseline.status == 200 && responselinejson == {}) {
-            console.log("success");
-            fs.writeFileSync('./last.txt', youtubeapijson.items[0].id.videoId);
+            fs.writeFileSync('./last.txt', youtubeapijson.items[0].id.videoId);*/
           }
         }
       }
