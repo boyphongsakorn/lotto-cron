@@ -266,12 +266,8 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       const youtubeapijson = await youtubeapi.json();
       if (youtubeapijson.pageInfo.totalResults > 0) {
         if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
-          var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.default.url;
-          if(youtubeapijson.items[0].snippet.thumbnails.high == undefined){
-            youtubeimage = youtubeapijson.items[0].snippet.thumbnails.medium.url;
-          }else if(youtubeapijson.items[0].snippet.thumbnails.medium == undefined){
-            youtubeimage = youtubeapijson.items[0].snippet.thumbnails.high.url;
-          }
+          var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.high.url || youtubeapijson.items[0].snippet.thumbnails.medium.url || youtubeapijson.items[0].snippet.thumbnails.default.url;
+          
           var raw = {
             "type": "bubble",
             "action": {
@@ -377,11 +373,11 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
             ]
           })
 
-          if(!fs.existsSync('./last.txt')) {
-            /*const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+          if(fs.existsSync('./last.txt') == false) {
+            const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
             const responselinejson = await responseline.json();
             console.log(responselinejson);
-            fs.writeFileSync('./last.txt', youtubeapijson.items[0].id.videoId);*/
+            fs.writeFileSync('./last.txt', youtubeapijson.items[0].id.videoId);
           }
         }
       }
