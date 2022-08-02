@@ -249,10 +249,13 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
   //if responsejson[0][1] != 0 or XXXXXX
   if (response.status == "success" || response.status == 200) {
     console.log(responsejson[0][1]);
-    if (responsejson[0][1] != '0' && responsejson[0][1] != 0 && responsejson[0][1] != "XXXXXX") {
+    if (responsejson[0][1] != '0' && responsejson[0][1] != 0 && responsejson[0][1].toUpperCase() != "XXXXXX") {
       const response = await fetch('https://lotto.teamquadb.in.th/aday.php');
       const responsetext = await response.text();
       console.log(responsetext);
+      const lotpost = await fetch('https://lotpost.teamquadb.in.th/aday.php');
+      const lotposttext = await lotpost.text();
+      console.log(lotposttext);
       if (responsetext == "success") {
         //log success
         console.log("successfull");
