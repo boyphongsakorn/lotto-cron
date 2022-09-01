@@ -264,7 +264,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       //remove last.txt file
       fs.unlinkSync('./last.txt');
     }
-    if ((parseInt(responsejson[8][100]) != 0 || parseInt(responsejson[7][50]) != 0 || parseInt(responsejson[6][10]) != 0) && (responsejson[8][100].toUpperCase() != "XXXXXX" || responsejson[7][50].toUpperCase() != "XXXXXX" || responsejson[6][10].toUpperCase() != "XXXXXX")) {
+    if ((parseInt(responsejson[8][1]) != 0 || parseInt(responsejson[7][1]) != 0 || parseInt(responsejson[6][1]) != 0) && (responsejson[8][1].toUpperCase() != "XXXXXX" || responsejson[7][1].toUpperCase() != "XXXXXX" || responsejson[6][1].toUpperCase() != "XXXXXX")) {
       const youtubeapi = await fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&channelId=UC0xykk-LCkhdxjFl2gdMkkQ&order=date&key=' + process.env.YOUTUBE_API_KEY);
       const youtubeapijson = await youtubeapi.json();
       if (youtubeapijson.pageInfo.totalResults > 0) {
