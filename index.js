@@ -654,8 +654,7 @@ fastify.get('/testpost', async (req, reply) => {
   const pageid = req.query.pageid;
   const pageaccesstoken = req.query.pageaccesstoken;
   const pagemsg = req.query.pagemsg;
-  //decode URI from pagemsg
-  const pagemsgdecode = decodeURIComponent(pagemsg);
+  const pagemsgdecode = encodeURIComponent(pagemsg);
   const imgurl = req.query.imgurl;
   const imgfetch = await fetch(imgurl);
   const imgbuf = await imgfetch.buffer();
