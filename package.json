@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fastify": "^4.9.2",
     "node-cron": "^3.0.1",
     "node-fetch": "^3.2.6",
+    "request": "^2.88.2",
     "uuid": "^8.3.2"
   }
 }

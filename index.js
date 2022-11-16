@@ -1,6 +1,8 @@
 var cron = require('node-cron');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const fs = require('fs');
+var request = require('request');
+var fs = require('fs');
+const fastify = require('fastify')({ logger: true });
 
 cron.schedule('0 9 * * *', async () => {
   /*await fetch('https://www.google.com')
@@ -647,3 +649,45 @@ cron.schedule('30 10 * * 0', async () => {
 })
 
 console.log('cron starting');
+
+fastify.get('/testpost', async (req, reply) => {
+  const pageid = req.query.pageid;
+  const pageaccesstoken = req.query.pageaccesstoken;
+  const pagemsg = req.query.pagemsg;
+  const imgurl = req.query.imgurl;
+  const imgfetch = await fetch(imgurl);
+  const imgbuf = await imgfetch.buffer();
+  await fs.writeFileSync('test.jpg', imgbuf);
+  var options = {
+    'method': 'POST',
+    'url': 'https://graph.facebook.com/v8.0/'+pageid+'/photos?access_token='+pageaccesstoken+'&message='+pagemsg,
+    formData: {
+      'source': {
+        'value': fs.createReadStream('test.jpg'),
+        'options': {
+          'filename': 'test.jpg',
+          'contentType': null
+        }
+      }
+    }
+  };
+  //let response = await request(options);
+  //return response.body;
+  return request(options, function (error, response) {
+    if (error) throw new Error(error);
+    //console.log(response.body);
+    return response.body;
+  });
+})
+
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen({ host: '0.0.0.0', port: 3000 })
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+
+start()
