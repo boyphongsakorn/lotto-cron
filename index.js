@@ -654,13 +654,15 @@ fastify.get('/testpost', async (req, reply) => {
   const pageid = req.query.pageid;
   const pageaccesstoken = req.query.pageaccesstoken;
   const pagemsg = req.query.pagemsg;
+  //decode URI from pagemsg
+  const pagemsgdecode = decodeURIComponent(pagemsg);
   const imgurl = req.query.imgurl;
   const imgfetch = await fetch(imgurl);
   const imgbuf = await imgfetch.buffer();
   await fs.writeFileSync('test.jpg', imgbuf);
   var options = {
     'method': 'POST',
-    'url': 'https://graph.facebook.com/v8.0/'+pageid+'/photos?access_token='+pageaccesstoken+'&message='+pagemsg,
+    'url': 'https://graph.facebook.com/v8.0/'+pageid+'/photos?access_token='+pageaccesstoken+'&message='+pagemsgdecode,
     formData: {
       'source': {
         'value': fs.createReadStream('test.jpg'),
