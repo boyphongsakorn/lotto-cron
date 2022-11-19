@@ -20,7 +20,7 @@ cron.schedule('0 9 * * *', async () => {
   let thisdayislottery = 'no'
   //let imagearray = []
   //const response = await fetch('https://thai-lottery1.p.rapidapi.com/reto', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
-  const response = await fetch('http://192.168.31.210:5000/reto', { 'method': 'GET' });
+  const response = await fetch('http://192.168.31.210:5000/reto');
   thisdayislottery = await response.text();
   //if thisdayislottery is json then it is error
   if (thisdayislottery.length > 10) {
@@ -30,7 +30,7 @@ cron.schedule('0 9 * * *', async () => {
   //thisdayislottery = 'yes'
   if (thisdayislottery == 'yes') {
     //const rechit = await fetch('https://thai-lottery1.p.rapidapi.com/getchit', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
-    const rechit = await fetch('http://192.168.31.210:5000/getchit', { 'method': 'GET' });
+    const rechit = await fetch('http://192.168.31.210:5000/getchit');
     const rechitjson = await rechit.json();
     //add rechitjson json array to imagearray
     //imagearray = rechitjson
