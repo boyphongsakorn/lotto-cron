@@ -271,7 +271,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       const youtubeapijson = await youtubeapi.json();
       if (youtubeapijson.pageInfo.totalResults > 0) {
         if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
-          var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.high.url || youtubeapijson.items[0].snippet.thumbnails.medium.url || youtubeapijson.items[0].snippet.thumbnails.default.url;
+          var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.medium.url || youtubeapijson.items[0].snippet.thumbnails.default.url;
           
           var raw = {
             "type": "bubble",
