@@ -4,7 +4,7 @@ var request = require('request');
 var fs = require('fs');
 const fastify = require('fastify')({ logger: true });
 
-cron.schedule('0 9 * * *', async () => {
+cron.schedule('15 9 * * *', async () => {
   /*await fetch('https://www.google.com')
   .then(response => {
       // Handle response
@@ -35,7 +35,7 @@ cron.schedule('0 9 * * *', async () => {
     //add rechitjson json array to imagearray
     //imagearray = rechitjson
     //fetch https://lottsanook-chitai-production.up.railway.app/ai
-    const responseai = await fetch('https://lottsanook-chitai-production.up.railway.app/ai');
+    const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
     const responseaijson = await responseai.json();
     //raw body
     var raw = JSON.stringify({
