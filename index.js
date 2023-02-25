@@ -693,7 +693,7 @@ fastify.get('/testpost', async (req, reply) => {
 fastify.get('/sendrcon', async (req, reply) => {
   const message = req.query.message;
   rcon.connect().then(() => {
-    rcon.send('broadcast chat' + message);
+    rcon.send('broadcast chat ' + message);
     rcon.end();
   }).catch((err) => {
     console.log(err);
