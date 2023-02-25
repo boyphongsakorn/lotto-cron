@@ -699,7 +699,9 @@ fastify.get('/sendrcon', async (req, reply) => {
     console.log(err);
     return err;
   });
-  return 'ok';
+  //setheader accept only bpminecraft.com
+  reply.header('Access-Control-Allow-Origin', 'https://bpminecraft.com');
+  return reply.send('ok');
 });
 
 // Run the server!
