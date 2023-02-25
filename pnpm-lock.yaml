@@ -4,6 +4,7 @@ specifiers:
   fastify: ^4.9.2
   node-cron: ^3.0.1
   node-fetch: ^3.2.6
+  rcon-client: ^4.2.3
   request: ^2.88.2
   uuid: ^8.3.2
 
@@ -11,6 +12,7 @@ dependencies:
   fastify: 4.9.2
   node-cron: 3.0.1
   node-fetch: 3.2.6
+  rcon-client: 4.2.3
   request: 2.88.2
   uuid: 8.3.2
 
@@ -518,6 +520,12 @@ packages:
     resolution: {integrity: sha512-tYC1Q1hgyRuHgloV/YXs2w15unPVh8qfu/qCTfhTYamaw7fyhumKa2yGpdSo87vY32rIclj+4fWYQXUMs9EHvg==}
     dev: false
 
+  /rcon-client/4.2.3:
+    resolution: {integrity: sha512-g+DEzI3O0Nl4Y3mPp6DHhSpYeiv+wTq8iKxCumFGO0/SMCsdNfx9bpT5RyHa7phR5dvspKfQK0ZYJp1YCtXNng==}
+    dependencies:
+      typed-emitter: 0.1.0
+    dev: false
+
   /readable-stream/4.2.0:
     resolution: {integrity: sha512-gJrBHsaI3lgBoGMW/jHZsQ/o/TIWiu5ENCJG1BB7fuCKzpFM8GaS2UoBVt9NO+oI+3FcrBNbUkl3ilDe09aY4A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -668,6 +676,10 @@ packages:
 
   /tweetnacl/0.14.5:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
+    dev: false
+
+  /typed-emitter/0.1.0:
+    resolution: {integrity: sha512-Tfay0l6gJMP5rkil8CzGbLthukn+9BN/VXWcABVFPjOoelJ+koW8BuPZYk+h/L+lEeIp1fSzVRiWRPIjKVjPdg==}
     dev: false
 
   /uri-js/4.4.1:

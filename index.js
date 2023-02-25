@@ -3,6 +3,15 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 var request = require('request');
 var fs = require('fs');
 const fastify = require('fastify')({ logger: true });
+const Rcon = require('rcon-client').Rcon;
+
+const options = {
+  host: '192.168.31.220',
+  port: 25575,
+  password: 'minecraft'
+};
+
+const rcon = new Rcon(options);
 
 cron.schedule('15 9 * * *', async () => {
   /*await fetch('https://www.google.com')
@@ -680,6 +689,18 @@ fastify.get('/testpost', async (req, reply) => {
     return response.body;
   });
 })
+
+fastify.get('/sendrcon', async (req, reply) => {
+  const message = req.query.message;
+  rcon.connect().then(() => {
+    rcon.send(message);
+    rcon.end();
+  }).catch((err) => {
+    console.log(err);
+    return err;
+  });
+  return 'ok';
+});
 
 // Run the server!
 const start = async () => {
