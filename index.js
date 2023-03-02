@@ -704,6 +704,30 @@ fastify.get('/sendrcon', async (req, reply) => {
   return reply.send('ok');
 });
 
+fastify.get('/gettempbyopenai', async (req, reply) => {
+  const roomtemp = req.query.roomtemp;
+  const aircontempset = req.query.aircontempset;
+  const outsidetemp = req.query.outsidetemp;
+  const whattempwant = req.query.whattempwant;
+  const { Configuration, OpenAIApi } = require("openai");
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+  const openai = new OpenAIApi(configuration);
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: "If the room temperature is "+roomtemp+"°C and the air conditioning is set at "+aircontempset+"°C while the outside temperature is "+outsidetemp+", what temperature should the air conditioning be set to in order to achieve a room temperature of "+whattempwant+"°C? (answer only number)",
+    temperature: 1,
+    max_tokens: 150,
+    top_p: 0.5,
+    frequency_penalty: 0,
+    presence_penalty: 0.6,
+  });
+  reply.header('Access-Control-Allow-Origin', '*');
+  return reply.send(response.data.choices[0].text);
+});
+
+
 // Run the server!
 const start = async () => {
   try {
