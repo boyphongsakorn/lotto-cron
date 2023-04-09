@@ -4,6 +4,11 @@ var request = require('request');
 var fs = require('fs');
 const fastify = require('fastify')({ logger: true });
 const Rcon = require('rcon-client').Rcon;
+const puppeteer = require('puppeteer');
+const cheerio = require('cheerio');
+
+//require('dotenv').config()
+require('dotenv').config()
 
 const options = {
   host: '192.168.31.220',
@@ -709,22 +714,45 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   const aircontempset = req.query.aircontempset;
   const outsidetemp = req.query.outsidetemp;
   const whattempwant = req.query.whattempwant;
-  const { Configuration, OpenAIApi } = require("openai");
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY
-  });
-  const openai = new OpenAIApi(configuration);
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: "If the room temperature is "+roomtemp+"°C and the air conditioning is set at "+aircontempset+"°C while the outside temperature is "+outsidetemp+", what temperature should the air conditioning be set to in order to achieve a room temperature of "+whattempwant+"°C? (answer only number)",
-    temperature: 1,
-    max_tokens: 150,
-    top_p: 0.5,
-    frequency_penalty: 0,
-    presence_penalty: 0.6,
-  });
+  // const { Configuration, OpenAIApi } = require("openai");
+  // const configuration = new Configuration({
+  //   apiKey: process.env.OPENAI_API_KEY
+  // });
+  // const openai = new OpenAIApi(configuration);
+  // const response = await openai.createCompletion({
+  //   model: "text-davinci-003",
+  //   prompt: "If the room temperature is "+roomtemp+"°C and the air conditioning is set at "+aircontempset+"°C while the outside temperature is "+outsidetemp+", what temperature should the air conditioning be set to in order to achieve a room temperature of "+whattempwant+"°C? (answer only number)",
+  //   temperature: 1,
+  //   max_tokens: 160,
+  //   top_p: 0.5,
+  //   frequency_penalty: 0,
+  //   presence_penalty: 0.6,
+  // });
+  // reply.header('Access-Control-Allow-Origin', '*');
+  // console.log(response.data);
+  // return reply.send(response.data.choices[0].text);
+  // await fetch('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+28%C2%B0C+and+outside+temperature+is+30%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+26%C2%B0C%3F+')
+  // .then(res => res.text())
+  // .then(body => {
+  //   console.log(body);
+  //   reply.header('Access-Control-Allow-Origin', '*');
+  //   return reply.send(body);
+  // });
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+'+roomtemp+'%C2%B0C+and+outside+temperature+is+'+outsidetemp+'%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+'+whattempwant+'%C2%B0C%3F+');
+  //wait 10 second
+  await page.waitForTimeout(10000);
+  const bodyHTML = await page.evaluate(() => document.body.innerHTML);
+  await browser.close();
+  const $ = cheerio.load(bodyHTML);
+  // get text in div class prose
+  const text = $('div.prose').text();
+  console.log(text);
+  //get first number in text
+  const number = text.match(/\d+/)[0];
   reply.header('Access-Control-Allow-Origin', '*');
-  return reply.send(response.data.choices[0].text);
+  return reply.send(number);
 });
 
 
