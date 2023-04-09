@@ -738,7 +738,7 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   //   reply.header('Access-Control-Allow-Origin', '*');
   //   return reply.send(body);
   // });
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run','--disable-extensions']});
   const page = await browser.newPage();
   await page.goto('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+'+roomtemp+'%C2%B0C+and+outside+temperature+is+'+outsidetemp+'%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+'+whattempwant+'%C2%B0C%3F+');
   //wait 10 second
