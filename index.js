@@ -793,6 +793,14 @@ fastify.get('/openmainrouterwifi', async (req, reply) => {
     applyRule();
   });
   await page.waitForTimeout(5000);
+  //use function logout() and click ok on alert
+  await page.evaluate(() => {
+    logout();
+  });
+  await page.waitForTimeout(5000);
+  await page.on('dialog', async dialog => {
+    await dialog.accept();
+  });
   //get html
   // const html = await page.content();
   // console.log(html);
