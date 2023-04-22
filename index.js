@@ -276,7 +276,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
         //log success
         console.log("successfull");
       }
-    } else if(responsejson[0][1] == '0' || responsejson[0][1] == 0){
+    } else if (responsejson[0][1] == '0' || responsejson[0][1] == 0) {
       //remove last.txt file
       fs.unlinkSync('./last.txt');
     }
@@ -286,13 +286,13 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       if (youtubeapijson.pageInfo.totalResults > 0) {
         if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
           var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.medium.url || youtubeapijson.items[0].snippet.thumbnails.default.url;
-          
+
           var raw = {
             "type": "bubble",
             "action": {
               "type": "uri",
               "label": "action",
-              "uri": "https://www.youtube.com/watch?v="+youtubeapijson.items[0].id.videoId
+              "uri": "https://www.youtube.com/watch?v=" + youtubeapijson.items[0].id.videoId
             },
             "header": {
               "type": "box",
@@ -392,7 +392,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
             ]
           })
 
-          if(fs.existsSync('./last.txt') == false) {
+          if (fs.existsSync('./last.txt') == false) {
             const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
             const responselinejson = await responseline.json();
             console.log(responselinejson);
@@ -642,7 +642,7 @@ cron.schedule('30 10 * * 0', async () => {
   const today = await fetch('https://lotapi.pwisetthon.com/reto');
   const todaytext = await today.text();
   let altText = "ข่าวสลากฯอาทิตย์นี้";
-  if(todaytext == 'yes'){
+  if (todaytext == 'yes') {
     altText = "ข่าวเลขเด็ดในงวดนี้";
   }
   raw = JSON.stringify({
@@ -675,7 +675,7 @@ fastify.get('/testpost', async (req, reply) => {
   await fs.writeFileSync('test.jpg', imgbuf);
   var options = {
     'method': 'POST',
-    'url': 'https://graph.facebook.com/v8.0/'+pageid+'/photos?access_token='+pageaccesstoken+'&message='+pagemsgdecode,
+    'url': 'https://graph.facebook.com/v8.0/' + pageid + '/photos?access_token=' + pageaccesstoken + '&message=' + pagemsgdecode,
     formData: {
       'source': {
         'value': fs.createReadStream('test.jpg'),
@@ -738,9 +738,9 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   //   reply.header('Access-Control-Allow-Origin', '*');
   //   return reply.send(body);
   // });
-  const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run','--disable-extensions']});
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
   const page = await browser.newPage();
-  await page.goto('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+'+roomtemp+'%C2%B0C+and+outside+temperature+is+'+outsidetemp+'%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+'+whattempwant+'%C2%B0C%3F+');
+  await page.goto('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+' + roomtemp + '%C2%B0C+and+outside+temperature+is+' + outsidetemp + '%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+' + whattempwant + '%C2%B0C%3F+');
   //wait 10 second
   await page.waitForTimeout(10000);
   const bodyHTML = await page.evaluate(() => document.body.innerHTML);
@@ -753,6 +753,50 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   const number = text.match(/\d+/)[0];
   reply.header('Access-Control-Allow-Origin', '*');
   return reply.send(number);
+});
+
+fastify.get('/openmainrouterwifi', async (req, reply) => {
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1920, height: 1080 });
+  await page.goto('http://192.168.31.1/Main_Login.asp');
+  await page.waitForTimeout(5000);
+  await page.type('#login_username', 'admin');
+  // type on div name login_passwd
+  await page.$eval('input[name=login_passwd]', (el, value) => el.value = value, 'Team1556th_');
+  //use function login()
+  await page.evaluate(() => {
+    login();
+  });
+  await page.waitForTimeout(5000);
+  //change url to http://192.168.31.1/Advanced_WAdvanced_Content.asp
+  await page.goto('http://192.168.31.1/Advanced_WAdvanced_Content.asp');
+  await page.waitForTimeout(5000);
+  if (req.query.wifi) {
+    if (req.query.wifi == 'on') {
+      await page.click('input[name=wl_radio][value="1"]');
+    } else if (req.query.wifi == 'off') {
+      await page.click('input[name=wl_radio][value="0"]');
+    } else {
+      await page.click('input[name=wl_radio][value="1"]');
+    }
+  } else {
+    //if input name wl_radio value 1 is checked
+    if (await page.$eval('input[name=wl_radio][value="1"]', el => el.checked)) {
+      await page.click('input[name=wl_radio][value="0"]');
+    } else {
+      await page.click('input[name=wl_radio][value="1"]');
+    }
+  }
+  //use function applyRule()
+  await page.evaluate(() => {
+    applyRule();
+  });
+  await page.waitForTimeout(5000);
+  //get html
+  // const html = await page.content();
+  // console.log(html);
+  await browser.close();
 });
 
 
