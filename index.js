@@ -797,6 +797,8 @@ fastify.get('/openmainrouterwifi', async (req, reply) => {
   // const html = await page.content();
   // console.log(html);
   await browser.close();
+  reply.header('Access-Control-Allow-Origin', '*');
+  return reply.send('ok');
 });
 
 
