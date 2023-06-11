@@ -747,7 +747,9 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   await browser.close();
   const $ = cheerio.load(bodyHTML);
   // get text in div class prose
-  const text = $('div.prose').text();
+  // const text = $('div.prose').text();
+  // get text in span id output
+  const text = $('span#output').text();
   console.log(text);
   //get first number in text
   const number = text.match(/\d+/)[0];
