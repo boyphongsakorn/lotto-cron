@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   chatgpt:
-    specifier: ^5.2.2
-    version: 5.2.2
+    specifier: ^5.2.5
+    version: 5.2.5
   cheerio:
     specifier: 1.0.0-rc.12
     version: 1.0.0-rc.12
@@ -56,10 +56,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: false
-
-  /@dqbd/tiktoken@1.0.3:
-    resolution: {integrity: sha512-xOg+NjwQE/o5Gf812W2drXGDaKiE+qKCmwxV95tQ2Y/e7aypDOntTH/UUpno82UAU2Hbyh6poDt1KXR/EFMrmQ==}
     dev: false
 
   /@fastify/ajv-compiler@3.4.0:
@@ -335,15 +331,15 @@ packages:
       supports-color: 5.5.0
     dev: false
 
-  /chatgpt@5.2.2:
-    resolution: {integrity: sha512-6HVueHj7ghJtcsBHi8CfXCC5fbCXJMc29NSGluTcg/2yLo0Jla3Wm/dlcz3cIb+7KVBKD5b6Qz5bVu8XFEF7Sg==}
+  /chatgpt@5.2.5:
+    resolution: {integrity: sha512-DNhBzPb2zTDjJADY44XfngMvsvrvHRq1md2VPXLmnKeP1UCeA1B6pV3s9ZRwlcgjVT0RyM77fRj1xj5V11Vctg==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@dqbd/tiktoken': 1.0.3
       cac: 6.7.14
       conf: 11.0.1
       eventsource-parser: 1.0.0
+      js-tiktoken: 1.0.7
       keyv: 4.5.2
       p-timeout: 6.1.1
       quick-lru: 6.1.1
@@ -910,6 +906,12 @@ packages:
 
   /isstream@0.1.2:
     resolution: {integrity: sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==}
+    dev: false
+
+  /js-tiktoken@1.0.7:
+    resolution: {integrity: sha512-biba8u/clw7iesNEWLOLwrNGoBP2lA+hTaBLs/D45pJdUPFXyxD6nhcDVtADChghv4GgyAiMKYMiRx7x6h7Biw==}
+    dependencies:
+      base64-js: 1.5.1
     dev: false
 
   /js-tokens@4.0.0:
