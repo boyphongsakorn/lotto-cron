@@ -752,6 +752,12 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
     // get text in span id output
     const text = $('span#output').text();
     console.log(text);
+    //if have ** after number, get number after **
+    if (text.includes('**')) {
+      const number = text.match(/\*\*(.*)/)[1];
+      reply.header('Access-Control-Allow-Origin', '*');
+      return reply.send(number);
+    }
     //get first number in text
     const number = text.match(/\d+/)[0];
     reply.header('Access-Control-Allow-Origin', '*');
