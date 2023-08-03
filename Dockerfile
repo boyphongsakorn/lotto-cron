@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-RUN apk add --no-cache font-noto-thai && apk add --no-cache libevent libevent-dev chromium --repository=http://dl-cdn.alpinelinux.org/alpine/v3.11/community
+RUN apk add --no-cache font-noto-thai && apk add --no-cache libevent libevent-dev chromium --repository=http://dl-cdn.alpinelinux.org/alpine/v3.10/community
 WORKDIR '/app'
 COPY package*.json ./
 #RUN apk add --update g++ make python3 py3-pip 
