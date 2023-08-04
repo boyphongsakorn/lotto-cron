@@ -756,12 +756,16 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
     console.log(text);
     //if have ** after number, get number after **
     if (text.includes('**')) {
-      const number = text.match(/\*\*(.*)/)[1];
+      let number = text.match(/\*\*(.*)/)[1];
+      //get first number in text
+      number = number.match(/\d+/)[0];
       reply.header('Access-Control-Allow-Origin', '*');
       return reply.send(number);
     }
+    //get text after word should
+    const textafter = text.match(/should(.*)/)[1];
     //get first number in text
-    const number = text.match(/\d+/)[0];
+    const number = textafter.match(/\d+/)[0];
     reply.header('Access-Control-Allow-Origin', '*');
     return reply.send(number);
   } catch (error) {
