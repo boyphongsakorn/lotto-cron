@@ -749,8 +749,10 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
     const $ = cheerio.load(bodyHTML);
     // get text in div class prose
     // const text = $('div.prose').text();
+    // div id text
+    const text = $('div#text').text();
     // get text in span id output
-    const text = $('span#output').text();
+    // const text = $('span#output').text();
     console.log(text);
     //if have ** after number, get number after **
     if (text.includes('**')) {
