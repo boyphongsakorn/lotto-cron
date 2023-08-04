@@ -763,6 +763,7 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
     reply.header('Access-Control-Allow-Origin', '*');
     return reply.send(number);
   } catch (error) {
+    console.log(error);
     process.exit(1)
   }
 });
