@@ -24,8 +24,8 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2
   openai:
-    specifier: ^4.3.0
-    version: 4.3.0
+    specifier: ^4.4.0
+    version: 4.4.0
   puppeteer:
     specifier: ^19.11.1
     version: 19.11.1
@@ -1125,8 +1125,8 @@ packages:
       wrappy: 1.0.2
     dev: false
 
-  /openai@4.3.0:
-    resolution: {integrity: sha512-ObF5jxvZoQbCNAI6FiiNkzFDinBRbu4KPm73/PKCy9UvjI24kPpnN9kK56rtPDVYxfk78C0A2SK0bJAE633BuQ==}
+  /openai@4.4.0:
+    resolution: {integrity: sha512-JN0t628Kh95T0IrXl0HdBqnlJg+4Vq0Bnh55tio+dfCnyzHvMLiWyCM9m726MAJD2YkDU4/8RQB6rNbEq9ct2w==}
     hasBin: true
     dependencies:
       '@types/node': 18.15.11
