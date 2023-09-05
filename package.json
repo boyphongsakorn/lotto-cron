@@ -13,7 +13,7 @@
     "chatgpt": "^5.2.5",
     "cheerio": "1.0.0-rc.12",
     "dotenv": "^16.3.1",
-    "fastify": "^4.22.0",
+    "fastify": "^4.22.2",
     "node-cron": "^3.0.2",
     "node-fetch": "^3.3.2",
     "openai": "^4.4.0",
