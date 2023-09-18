@@ -36,8 +36,8 @@ dependencies:
     specifier: ^2.88.2
     version: 2.88.2
   uuid:
-    specifier: ^9.0.0
-    version: 9.0.0
+    specifier: ^9.0.1
+    version: 9.0.1
 
 packages:
 
@@ -341,7 +341,7 @@ packages:
       p-timeout: 6.1.1
       quick-lru: 6.1.1
       read-pkg-up: 9.1.0
-      uuid: 9.0.0
+      uuid: 9.0.1
     dev: false
 
   /cheerio-select@2.1.0:
@@ -1653,8 +1653,8 @@ packages:
     hasBin: true
     dev: false
 
-  /uuid@9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: false
 
