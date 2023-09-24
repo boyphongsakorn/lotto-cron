@@ -33,7 +33,7 @@ function getAccessToken() {
       key.client_email,
       null,
       key.private_key,
-      SCOPES,
+      ['https://www.googleapis.com/auth/firebase.messaging'],
       null
     );
     jwtClient.authorize(function (err, tokens) {
