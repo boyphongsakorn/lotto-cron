@@ -3,3 +3,4 @@
 test.js
 .DS_Store
 .env
+firebase-adminsdk.json

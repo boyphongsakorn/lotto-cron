@@ -6,6 +6,14 @@ const fastify = require('fastify')({ logger: true });
 const Rcon = require('rcon-client').Rcon;
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+const { google } = require('googleapis');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./firebase-adminsdk.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 //require('dotenv').config()
 require('dotenv').config()
@@ -17,6 +25,26 @@ const options = {
 };
 
 const rcon = new Rcon(options);
+
+function getAccessToken() {
+  return new Promise(function (resolve, reject) {
+    const key = require("./firebase-adminsdk.json");
+    const jwtClient = new google.auth.JWT(
+      key.client_email,
+      null,
+      key.private_key,
+      SCOPES,
+      null
+    );
+    jwtClient.authorize(function (err, tokens) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(tokens.access_token);
+    });
+  });
+}
 
 cron.schedule('15 9 * * *', async () => {
   /*await fetch('https://www.google.com')
@@ -286,6 +314,30 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
       if (youtubeapijson.pageInfo.totalResults > 0) {
         if (youtubeapijson.items[0].snippet.liveBroadcastContent == 'live') {
           var youtubeimage = youtubeapijson.items[0].snippet.thumbnails.medium.url || youtubeapijson.items[0].snippet.thumbnails.default.url;
+
+          const token = await getAccessToken();
+
+          const notiBody = {
+            message: {
+              notification: {
+                title: 'เริ่มแล้วการถ่ายทอดสด สลากกินแบ่งฯ',
+                body: youtubeapijson.items[0].snippet.title + " | url:https://www.youtube.com/watch?v=" + youtubeapijson.items[0].id.videoId,
+                image: youtubeimage
+              },
+              topic: 'all'
+            }
+          }
+
+          const fcmHeaders = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+
+          const fcmResponse = await fetch('https://fcm.googleapis.com/v1/projects/wrblob/messages:send', {
+            method: 'POST',
+            headers: fcmHeaders,
+            body: JSON.stringify(notiBody)
+          });
 
           var raw = {
             "type": "bubble",
