@@ -30,8 +30,8 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2
   openai:
-    specifier: ^4.12.1
-    version: 4.12.1
+    specifier: ^4.12.4
+    version: 4.12.4
   puppeteer:
     specifier: ^19.11.1
     version: 19.11.1
@@ -2390,8 +2390,8 @@ packages:
       wrappy: 1.0.2
     dev: false
 
-  /openai@4.12.1:
-    resolution: {integrity: sha512-EAoUwm4dtiWvFwBhOCK/VfF8sj1ZU8+aAIJnfT4NyeTfrt1DM/6Gdd6fOZWTjBYryTAqu9Vpb5+9Wu6JMtm/gA==}
+  /openai@4.12.4:
+    resolution: {integrity: sha512-oPNVJkpgxDUKF6WGGdHEZh5m/kjmYxS2Y1q7YVFCkvKUGthb8OGYRGCFBRPq5CQJezifzABTZRlVYnXLd6L4vQ==}
     hasBin: true
     dependencies:
       '@types/node': 18.15.11
@@ -2402,6 +2402,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
+      web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
     dev: false
