@@ -322,7 +322,7 @@ cron.schedule('0-10,50-59 14-17 * * *', async () => {
               notification: {
                 title: 'เริ่มแล้วการถ่ายทอดสด สลากกินแบ่งฯ',
                 body: youtubeapijson.items[0].snippet.title + " | url:https://www.youtube.com/watch?v=" + youtubeapijson.items[0].id.videoId,
-                image: youtubeimage
+                image: youtubeapijson.items[0].snippet.thumbnails.default.url
               },
               topic: 'all'
             }
