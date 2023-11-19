@@ -16,7 +16,7 @@
     "fastify": "^4.24.3",
     "firebase-admin": "^11.11.0",
     "googleapis": "^128.0.0",
-    "node-cron": "^3.0.2",
+    "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "openai": "^4.17.4",
     "puppeteer": "^19.11.1",
