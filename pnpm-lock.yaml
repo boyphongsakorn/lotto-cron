@@ -36,8 +36,8 @@ dependencies:
     specifier: ^19.11.1
     version: 19.11.1
   rcon-client:
-    specifier: ^4.2.3
-    version: 4.2.3
+    specifier: ^4.2.4
+    version: 4.2.4
   request:
     specifier: ^2.88.2
     version: 2.88.2
@@ -2722,8 +2722,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /rcon-client@4.2.3:
-    resolution: {integrity: sha512-g+DEzI3O0Nl4Y3mPp6DHhSpYeiv+wTq8iKxCumFGO0/SMCsdNfx9bpT5RyHa7phR5dvspKfQK0ZYJp1YCtXNng==}
+  /rcon-client@4.2.4:
+    resolution: {integrity: sha512-sTHYLbcu2qrrOX4TOD3rvcLZNs7xiAhTsnZZIvxviSpa0yeV63sPAVI0PeScn5IvhKOCMURGt1NmnQ8h/GxjtA==}
     dependencies:
       typed-emitter: 0.1.0
     dev: false

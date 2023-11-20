@@ -20,7 +20,7 @@
     "node-fetch": "^3.3.2",
     "openai": "^4.17.4",
     "puppeteer": "^19.11.1",
-    "rcon-client": "^4.2.3",
+    "rcon-client": "^4.2.4",
     "request": "^2.88.2",
     "uuid": "^9.0.1"
   }
