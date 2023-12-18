@@ -30,8 +30,8 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2
   openai:
-    specifier: ^4.20.1
-    version: 4.20.1
+    specifier: ^4.23.0
+    version: 4.23.0
   puppeteer:
     specifier: ^19.11.1
     version: 19.11.1
@@ -404,7 +404,7 @@ packages:
   /@types/node-fetch@2.6.6:
     resolution: {integrity: sha512-95X8guJYhfqiuVVhRFxVQcf4hW/2bCuoPwDasMf/531STFoNoWTT7YDnWdXHEZKqAGUigmpG31r2FE70LwnzJw==}
     dependencies:
-      '@types/node': 18.15.11
+      '@types/node': 20.10.4
       form-data: 4.0.0
     dev: false
 
@@ -466,7 +466,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.15.11
+      '@types/node': 20.10.4
     dev: false
     optional: true
 
@@ -493,6 +493,7 @@ packages:
   /agent-base@7.1.0:
     resolution: {integrity: sha512-o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==}
     engines: {node: '>= 14'}
+    requiresBuild: true
     dependencies:
       debug: 4.3.4
     transitivePeerDependencies:
@@ -1490,6 +1491,7 @@ packages:
   /https-proxy-agent@7.0.2:
     resolution: {integrity: sha512-NmLNjm6ucYwtcUmL7JQC1ZQ57LmHP4lT15FQ8D61nak1rO6DH+fz5qNK2Ap5UN4ZapYICE3/0KodcLYSPsPbaA==}
     engines: {node: '>= 14'}
+    requiresBuild: true
     dependencies:
       agent-base: 7.1.0
       debug: 4.3.4
@@ -1547,6 +1549,7 @@ packages:
   /is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dev: false
 
   /is-typedarray@1.0.0:
@@ -1918,8 +1921,8 @@ packages:
       wrappy: 1.0.2
     dev: false
 
-  /openai@4.20.1:
-    resolution: {integrity: sha512-Dd3q8EvINfganZFtg6V36HjrMaihqRgIcKiHua4Nq9aw/PxOP48dhbsk8x5klrxajt5Lpnc1KTOG5i1S6BKAJA==}
+  /openai@4.23.0:
+    resolution: {integrity: sha512-ey2CXh1OTcTUa0AWZWuTpgA9t5GuAG3DVU1MofCRUI7fQJij8XJ3Sr0VtgxoAE69C9wbHBMCux8Z/IQZfSwHiA==}
     hasBin: true
     dependencies:
       '@types/node': 18.15.11
