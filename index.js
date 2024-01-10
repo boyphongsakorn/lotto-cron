@@ -794,7 +794,7 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   try {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
     const page = await browser.newPage();
-    await page.goto('https://iask.ai/?mode=question&q=i+want+number+answer+only%2C+If+room+temperature+is+' + roomtemp + '%C2%B0C+and+outside+temperature+is+' + outsidetemp + '%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+' + whattempwant + '%C2%B0C%3F+');
+    await page.goto('https://iask.ai/?mode=academic&q=i+want+number+answer+only%2C+If+room+temperature+is+' + roomtemp + '%C2%B0C+and+outside+temperature+is+' + outsidetemp + '%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+' + whattempwant + '%C2%B0C%3F+');
     //wait 10 second
     await page.waitForTimeout(10000);
     const bodyHTML = await page.evaluate(() => document.body.innerHTML);
