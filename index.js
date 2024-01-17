@@ -77,8 +77,8 @@ cron.schedule('15 9 * * *', async () => {
     //add rechitjson json array to imagearray
     //imagearray = rechitjson
     //fetch https://lottsanook-chitai-production.up.railway.app/ai
-    const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
-    const responseaijson = await responseai.json();
+    // const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
+    // const responseaijson = await responseai.json();
     //raw body
     var raw = JSON.stringify({
       "messages": [
@@ -88,117 +88,117 @@ cron.schedule('15 9 * * *', async () => {
           "contents": {
             "type": "carousel",
             "contents": [
-              {
-                "type": "bubble",
-                "header": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
-                      "align": "center",
-                      "weight": "bold"
-                    }
-                  ]
-                },
-                "body": {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "1. " + responseaijson[0].key + "",
-                          "weight": "bold",
-                          "size": "3xl"
-                        },
-                        {
-                          "type": "text",
-                          "text": "2. " + responseaijson[1].key + "",
-                          "size": "xxl"
-                        },
-                        {
-                          "type": "text",
-                          "text": "3. " + responseaijson[2].key + "",
-                          "size": "xl"
-                        },
-                        {
-                          "type": "text",
-                          "text": "4. " + responseaijson[3].key + ""
-                        },
-                        {
-                          "type": "text",
-                          "text": "5. " + responseaijson[4].key + ""
-                        }
-                      ]
-                    },
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "6. " + responseaijson[5].key + ""
-                        },
-                        {
-                          "type": "text",
-                          "text": "7. " + responseaijson[6].key + ""
-                        },
-                        {
-                          "type": "text",
-                          "text": "8. " + responseaijson[7].key + ""
-                        },
-                        {
-                          "type": "text",
-                          "text": "9. " + responseaijson[8].key + ""
-                        },
-                        {
-                          "type": "text",
-                          "text": "10. " + responseaijson[9].key + ""
-                        }
-                      ]
-                    }
-                  ],
-                  "paddingBottom": "none"
-                },
-                "footer": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "button",
-                          "action": {
-                            "type": "uri",
-                            "label": "ดูเลขเด็ดเพิ่มเติม",
-                            "uri": "https://lottsanook-chitai-production.up.railway.app/"
-                          }
-                        }
-                      ],
-                      "backgroundColor": "#FFD700",
-                      "cornerRadius": "xxl",
-                      "background": {
-                        "type": "linearGradient",
-                        "angle": "0deg",
-                        "startColor": "#FFD700",
-                        "endColor": "#ffffff"
-                      }
-                    }
-                  ]
-                },
-                "styles": {
-                  "body": {
-                    "separator": true
-                  }
-                }
-              },
+              // {
+              //   "type": "bubble",
+              //   "header": {
+              //     "type": "box",
+              //     "layout": "vertical",
+              //     "contents": [
+              //       {
+              //         "type": "text",
+              //         "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
+              //         "align": "center",
+              //         "weight": "bold"
+              //       }
+              //     ]
+              //   },
+              //   "body": {
+              //     "type": "box",
+              //     "layout": "horizontal",
+              //     "contents": [
+              //       {
+              //         "type": "box",
+              //         "layout": "vertical",
+              //         "contents": [
+              //           {
+              //             "type": "text",
+              //             "text": "1. " + responseaijson[0].key + "",
+              //             "weight": "bold",
+              //             "size": "3xl"
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "2. " + responseaijson[1].key + "",
+              //             "size": "xxl"
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "3. " + responseaijson[2].key + "",
+              //             "size": "xl"
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "4. " + responseaijson[3].key + ""
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "5. " + responseaijson[4].key + ""
+              //           }
+              //         ]
+              //       },
+              //       {
+              //         "type": "box",
+              //         "layout": "vertical",
+              //         "contents": [
+              //           {
+              //             "type": "text",
+              //             "text": "6. " + responseaijson[5].key + ""
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "7. " + responseaijson[6].key + ""
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "8. " + responseaijson[7].key + ""
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "9. " + responseaijson[8].key + ""
+              //           },
+              //           {
+              //             "type": "text",
+              //             "text": "10. " + responseaijson[9].key + ""
+              //           }
+              //         ]
+              //       }
+              //     ],
+              //     "paddingBottom": "none"
+              //   },
+              //   "footer": {
+              //     "type": "box",
+              //     "layout": "vertical",
+              //     "contents": [
+              //       {
+              //         "type": "box",
+              //         "layout": "vertical",
+              //         "contents": [
+              //           {
+              //             "type": "button",
+              //             "action": {
+              //               "type": "uri",
+              //               "label": "ดูเลขเด็ดเพิ่มเติม",
+              //               "uri": "https://lottsanook-chitai-production.up.railway.app/"
+              //             }
+              //           }
+              //         ],
+              //         "backgroundColor": "#FFD700",
+              //         "cornerRadius": "xxl",
+              //         "background": {
+              //           "type": "linearGradient",
+              //           "angle": "0deg",
+              //           "startColor": "#FFD700",
+              //           "endColor": "#ffffff"
+              //         }
+              //       }
+              //     ]
+              //   },
+              //   "styles": {
+              //     "body": {
+              //       "separator": true
+              //     }
+              //   }
+              // },
               {
                 "type": "bubble",
                 "body": {
