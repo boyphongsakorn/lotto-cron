@@ -15,7 +15,7 @@
     "dotenv": "^16.4.5",
     "fastify": "^4.25.2",
     "firebase-admin": "^12.1.0",
-    "googleapis": "^134.0.0",
+    "googleapis": "^137.1.0",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "openai": "^4.38.5",

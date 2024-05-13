@@ -21,8 +21,8 @@ dependencies:
     specifier: ^12.1.0
     version: 12.1.0
   googleapis:
-    specifier: ^134.0.0
-    version: 134.0.0
+    specifier: ^137.1.0
+    version: 137.1.0
   node-cron:
     specifier: ^3.0.3
     version: 3.0.3
@@ -1394,8 +1394,8 @@ packages:
       - supports-color
     dev: false
 
-  /googleapis@134.0.0:
-    resolution: {integrity: sha512-o8LhD1754W6MHWtpwAPeP1WUHgNxuMxCnLMDFlMKAA5kCMTNqX9/eaTXnkkAIv6YRfoKMQ6D1vyR6/biXuhE9g==}
+  /googleapis@137.1.0:
+    resolution: {integrity: sha512-2L7SzN0FLHyQtFmyIxrcXhgust77067pkkduqkbIpDuj9JzVnByxsRrcRfUMFQam3rQkWW2B0f1i40IwKDWIVQ==}
     engines: {node: '>=14.0.0'}
     dependencies:
       google-auth-library: 9.0.0
