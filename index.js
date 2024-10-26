@@ -24,7 +24,21 @@ const options = {
   password: 'minecraft'
 };
 
+const hardserveroptions = {
+  host: '192.168.31.220',
+  port: process.env.hardport,
+  password: 'minecraft'
+};
+
+const gunserveroptions = {
+  host: '192.168.31.220',
+  port: process.env.gunport,
+  password: 'minecraft'
+};
+
 const rcon = new Rcon(options);
+const hardrcon = new Rcon(hardserveroptions);
+const gunrcon = new Rcon(gunserveroptions);
 
 function getAccessToken() {
   return new Promise(function (resolve, reject) {
@@ -759,6 +773,34 @@ fastify.get('/sendrcon', async (req, reply) => {
   });
   //setheader accept only bpminecraft.com
   reply.header('Access-Control-Allow-Origin', 'https://bpminecraft.com');
+  return reply.send('ok');
+});
+
+fastify.get('/sendpoweroutagealert', async (req, reply) => {
+  const message = req.query.message;
+  // rcon.connect().then(() => {
+  //   rcon.send('broadcast ' + message);
+  //   rcon.end();
+  // }).catch((err) => {
+  //   console.log(err);
+  //   return err;
+  // });
+  hardrcon.connect().then(() => {
+    hardrcon.send('broadcast ' + message);
+    hardrcon.end();
+  }).catch((err) => {
+    console.log(err);
+    return err;
+  });
+  gunrcon.connect().then(() => {
+    gunrcon.send('broadcast ' + message);
+    gunrcon.end();
+  }).catch((err) => {
+    console.log(err);
+    return err;
+  });
+  //setheader accept only localhost
+  reply.header('Access-Control-Allow-Origin', 'http://localhost:9400');
   return reply.send('ok');
 });
 
