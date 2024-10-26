@@ -786,15 +786,23 @@ fastify.get('/sendpoweroutagealert', async (req, reply) => {
   //   return err;
   // });
   hardrcon.connect().then(() => {
-    hardrcon.send('broadcast ' + message);
-    hardrcon.end();
+    hardrcon.send('say ' + message).then(() => {
+      hardrcon.end();
+    }).catch((err) => {
+      console.log(err);
+      return err;
+    });
   }).catch((err) => {
     console.log(err);
     return err;
   });
   gunrcon.connect().then(() => {
-    gunrcon.send('broadcast ' + message);
-    gunrcon.end();
+    gunrcon.send('say ' + message).then(() => {
+      gunrcon.end();
+    }).catch((err) => {
+      console.log(err);
+      return err;
+    });
   }).catch((err) => {
     console.log(err);
     return err;
