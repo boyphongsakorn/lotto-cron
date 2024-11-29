@@ -38,8 +38,8 @@ dependencies:
     specifier: ^2.88.2
     version: 2.88.2
   uuid:
-    specifier: ^9.0.1
-    version: 9.0.1
+    specifier: ^10.0.0
+    version: 10.0.0
 
 packages:
 
