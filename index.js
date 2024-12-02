@@ -877,60 +877,75 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   }
 });
 
-fastify.get('/openmainrouterwifi', async (req, reply) => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1920, height: 1080 });
-  await page.goto('http://192.168.31.1/Main_Login.asp');
-  await page.waitForTimeout(5000);
-  await page.type('#login_username', 'admin');
-  // type on div name login_passwd
-  await page.$eval('input[name=login_passwd]', (el, value) => el.value = value, 'Team1556th_');
-  //use function login()
-  await page.evaluate(() => {
-    login();
-  });
-  await page.waitForTimeout(5000);
-  //change url to http://192.168.31.1/Advanced_WAdvanced_Content.asp
-  await page.goto('http://192.168.31.1/Advanced_WAdvanced_Content.asp');
-  await page.waitForTimeout(5000);
-  if (req.query.wifi) {
-    if (req.query.wifi == 'on') {
-      await page.click('input[name=wl_radio][value="1"]');
-    } else if (req.query.wifi == 'off') {
-      await page.click('input[name=wl_radio][value="0"]');
-    } else {
-      await page.click('input[name=wl_radio][value="1"]');
-    }
-  } else {
-    //if input name wl_radio value 1 is checked
-    if (await page.$eval('input[name=wl_radio][value="1"]', el => el.checked)) {
-      await page.click('input[name=wl_radio][value="0"]');
-    } else {
-      await page.click('input[name=wl_radio][value="1"]');
-    }
-  }
-  //use function applyRule()
-  await page.evaluate(() => {
-    applyRule();
-  });
-  await page.waitForTimeout(5000);
-  //use function logout() and click ok on alert
-  await page.evaluate(() => {
-    logout();
-  });
-  await page.waitForTimeout(5000);
-  await page.on('dialog', async dialog => {
-    await dialog.accept();
-  });
-  //get html
-  // const html = await page.content();
-  // console.log(html);
-  await browser.close();
-  reply.header('Access-Control-Allow-Origin', '*');
-  return reply.send('ok');
-});
+// fastify.get('/openmainrouterwifi', async (req, reply) => {
+//   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
+//   const page = await browser.newPage();
+//   await page.setViewport({ width: 1920, height: 1080 });
+//   await page.goto('http://192.168.31.1/Main_Login.asp');
+//   await page.waitForTimeout(5000);
+//   await page.type('#login_username', 'admin');
+//   // type on div name login_passwd
+//   await page.$eval('input[name=login_passwd]', (el, value) => el.value = value, 'Team1556th_');
+//   //use function login()
+//   await page.evaluate(() => {
+//     login();
+//   });
+//   await page.waitForTimeout(5000);
+//   //change url to http://192.168.31.1/Advanced_WAdvanced_Content.asp
+//   await page.goto('http://192.168.31.1/Advanced_WAdvanced_Content.asp');
+//   await page.waitForTimeout(5000);
+//   if (req.query.wifi) {
+//     if (req.query.wifi == 'on') {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     } else if (req.query.wifi == 'off') {
+//       await page.click('input[name=wl_radio][value="0"]');
+//     } else {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     }
+//   } else {
+//     //if input name wl_radio value 1 is checked
+//     if (await page.$eval('input[name=wl_radio][value="1"]', el => el.checked)) {
+//       await page.click('input[name=wl_radio][value="0"]');
+//     } else {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     }
+//   }
+//   //use function applyRule()
+//   await page.evaluate(() => {
+//     applyRule();
+//   });
+//   await page.waitForTimeout(5000);
+//   //use function logout() and click ok on alert
+//   await page.evaluate(() => {
+//     logout();
+//   });
+//   await page.waitForTimeout(5000);
+//   await page.on('dialog', async dialog => {
+//     await dialog.accept();
+//   });
+//   //get html
+//   // const html = await page.content();
+//   // console.log(html);
+//   await browser.close();
+//   reply.header('Access-Control-Allow-Origin', '*');
+//   return reply.send('ok');
+// });
 
+fastify.get('/twitchstatus', async (req, reply) => {
+  const twitchapitoken = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.TWITCH_CLIENT_ID + '&client_secret=' + process.env.TWITCH_CLIENT_SECRET + '&grant_type=client_credentials', { 'method': 'POST' });
+  const twitchaccessjson = await twitchapitoken.json();
+  const token = twitchaccessjson.access_token;
+  const twitchapi = await fetch('https://api.twitch.tv/helix/streams?user_login=duowater', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
+  const twitchapijson = await twitchapi.json();
+  console.log(twitchapijson);
+  if (twitchapijson.data.length > 0) {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(twitchapijson.data[0]);
+  } else {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send('offline');
+  }
+});
 
 // Run the server!
 const start = async () => {
