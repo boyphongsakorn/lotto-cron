@@ -947,6 +947,38 @@ fastify.get('/twitchstatus', async (req, reply) => {
   }
 });
 
+fastify.get('/fortniteitemshop', async (req, reply) => {
+  //if file fortniteitemshop.json not exist
+  if (!fs.existsSync('fortniteitemshop.json')) {
+    const headers = {
+      'Authorization': process.env.FORTNITE_API_IO_KEY
+    }
+    const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
+    const fortniteitemshopjson = await fortniteitemshop.json();
+    //write to file
+    fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(fortniteitemshopjson);
+  } else {
+    //read file
+    const fortniteitemshopjson = JSON.parse(fs.readFileSync('fortniteitemshop.json'));
+    //if now after 7am and exist file write before 7am
+    if (new Date().getHours() >= 7 && new Date(fs.statSync('fortniteitemshop.json').mtime).getHours() < 7) {
+      const headers = {
+        'Authorization': process.env.FORTNITE_API_IO_KEY
+      }
+      const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
+      const fortniteitemshopjson = await fortniteitemshop.json();
+      //write to file
+      fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
+      reply.header('Access-Control-Allow-Origin', '*');
+      return reply.send(fortniteitemshopjson);
+    }
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(fortniteitemshopjson);
+  }
+});
+
 // Run the server!
 const start = async () => {
   try {
