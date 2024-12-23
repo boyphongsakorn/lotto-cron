@@ -962,8 +962,8 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
   } else {
     //read file
     const fortniteitemshopjson = JSON.parse(fs.readFileSync('fortniteitemshop.json'));
-    //if now after 7am and exist file write before 7am
-    if (new Date().getHours() >= 7 && new Date(fs.statSync('fortniteitemshop.json').mtime).getHours() < 7) {
+    //if now after 7am and exist file write before today 7am
+    if (new Date().getHours() >= 7 && fs.statSync('fortniteitemshop.json').mtime < new Date().setHours(7, 0, 0, 0)) {
       const headers = {
         'Authorization': process.env.FORTNITE_API_IO_KEY
       }
