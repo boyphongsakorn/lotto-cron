@@ -955,6 +955,31 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
     }
     const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
     const fortniteitemshopjson = await fortniteitemshop.json();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
+    const page = await browser.newPage();
+    await page.goto('https://fortnite.gg/shop');
+    //wait 10 second
+    await page.waitForTimeout(10000);
+    const ggtext = await page.evaluate(() => document.body.innerHTML);
+    await browser.close();
+    const $ = cheerio.load(ggtext);
+    for (let i = 0; i < fortniteitemshopjson.shop.length; i++) {
+      if(fortniteitemshopjson.shop[i].displayType != 'Music' && fortniteitemshopjson.shop[i].mainType != 'bundle') {
+        //find image that have alt text same as 'Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName
+        const img = $('img[alt="Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName + '"]');
+        //get src of img
+        const imgsrc = img.attr('src');
+        console.log(fortniteitemshopjson.shop[i].displayName);
+        console.log(imgsrc);
+        if (imgsrc) {
+          fortniteitemshopjson.shop[i].video = 'https://fnggcdn.com' + imgsrc.replace('img/', '').replace('icon.png', 'video.mp4');
+        } else {
+          fortniteitemshopjson.shop[i].video = '';
+        }
+      } else {
+        fortniteitemshopjson.shop[i].video = '';
+      }
+    }
     //write to file
     fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
     reply.header('Access-Control-Allow-Origin', '*');
@@ -969,6 +994,31 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
       }
       const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
       const fortniteitemshopjson = await fortniteitemshop.json();
+      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
+      const page = await browser.newPage();
+      await page.goto('https://fortnite.gg/shop');
+      //wait 10 second
+      await page.waitForTimeout(10000);
+      const ggtext = await page.evaluate(() => document.body.innerHTML);
+      await browser.close();
+      const $ = cheerio.load(ggtext);
+      for (let i = 0; i < fortniteitemshopjson.shop.length; i++) {
+        if(fortniteitemshopjson.shop[i].displayType != 'Music' && fortniteitemshopjson.shop[i].mainType != 'bundle') {
+          //find image that have alt text same as 'Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName
+          const img = $('img[alt="Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName + '"]');
+          //get src of img
+          const imgsrc = img.attr('src');
+          console.log(fortniteitemshopjson.shop[i].displayName);
+          console.log(imgsrc);
+          if (imgsrc) {
+            fortniteitemshopjson.shop[i].video = 'https://fnggcdn.com' + imgsrc.replace('img/', '').replace('icon.png', 'video.mp4');
+          } else {
+            fortniteitemshopjson.shop[i].video = '';
+          }
+        } else {
+          fortniteitemshopjson.shop[i].video = '';
+        }
+      }
       //write to file
       fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
       reply.header('Access-Control-Allow-Origin', '*');
