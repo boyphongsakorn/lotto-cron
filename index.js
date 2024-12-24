@@ -959,7 +959,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
     const page = await browser.newPage();
     await page.goto('https://fortnite.gg/shop');
     //wait 10 second
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
     const ggtext = await page.evaluate(() => document.body.innerHTML);
     await browser.close();
     const $ = cheerio.load(ggtext);
@@ -994,7 +994,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
       }
       const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
       const fortniteitemshopjson = await fortniteitemshop.json();
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
+      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 10000, protocolTimeout: 20000 });
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
