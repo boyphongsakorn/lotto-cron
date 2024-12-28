@@ -955,13 +955,19 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
     }
     const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
     const fortniteitemshopjson = await fortniteitemshop.json();
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 30000, protocolTimeout: 60000 });
-    const page = await browser.newPage();
-    await page.goto('https://fortnite.gg/shop');
-    //wait 10 second
-    await page.waitForTimeout(5000);
-    const ggtext = await page.evaluate(() => document.body.innerHTML);
-    await browser.close();
+    let ggtext = '';
+    try{
+      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
+      const page = await browser.newPage();
+      await page.goto('https://fortnite.gg/shop');
+      //wait 10 second
+      await page.waitForTimeout(5000);
+      ggtext = await page.evaluate(() => document.body.innerHTML);
+      await browser.close();
+    } catch (error) {
+      const ggshop = await fetch('https://fortnite.gg/shop');
+      ggtext = await ggshop.text();
+    }
     const $ = cheerio.load(ggtext);
     for (let i = 0; i < fortniteitemshopjson.shop.length; i++) {
       if(fortniteitemshopjson.shop[i].displayType != 'Music' && fortniteitemshopjson.shop[i].mainType != 'bundle') {
@@ -994,7 +1000,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
       }
       const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
       const fortniteitemshopjson = await fortniteitemshop.json();
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 10000, protocolTimeout: 60000 });
+      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
