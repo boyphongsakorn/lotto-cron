@@ -935,7 +935,7 @@ fastify.get('/twitchstatus', async (req, reply) => {
   const twitchapitoken = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.TWITCH_CLIENT_ID + '&client_secret=' + process.env.TWITCH_CLIENT_SECRET + '&grant_type=client_credentials', { 'method': 'POST' });
   const twitchaccessjson = await twitchapitoken.json();
   const token = twitchaccessjson.access_token;
-  const twitchapi = await fetch('https://api.twitch.tv/helix/streams?user_login=duowater', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
+  const twitchapi = await fetch('https://api.twitch.tv/helix/streams?user_login=boyalone99', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
   const twitchapijson = await twitchapi.json();
   console.log(twitchapijson);
   if (twitchapijson.data.length > 0) {
