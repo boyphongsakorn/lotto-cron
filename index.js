@@ -957,7 +957,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
     const fortniteitemshopjson = await fortniteitemshop.json();
     let ggtext = '';
     try{
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
+      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
