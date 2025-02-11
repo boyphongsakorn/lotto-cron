@@ -842,7 +842,7 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   //   return reply.send(body);
   // });
   try {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
+    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
     const page = await browser.newPage();
     await page.goto('https://iask.ai/?mode=academic&q=i+want+number+answer+only%2C+If+room+temperature+is+' + roomtemp + '%C2%B0C+and+outside+temperature+is+' + outsidetemp + '%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+' + whattempwant + '%C2%B0C%3F+');
     //wait 10 second
@@ -1000,7 +1000,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
       }
       const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
       const fortniteitemshopjson = await fortniteitemshop.json();
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
+      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 60000, protocolTimeout: 120000 });
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
