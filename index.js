@@ -1130,6 +1130,7 @@ DTSTART;VALUE=DATE:${start}
 DTEND;VALUE=DATE:${end}
 SUMMARY:${event.display_name}
 DESCRIPTION:${event.description || ''}
+TRANSP:TRANSPARENT
 END:VEVENT
 `;
   });
