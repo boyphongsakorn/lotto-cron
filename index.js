@@ -1111,11 +1111,11 @@ fastify.get('/odooleave', async (req, reply) => {
 
   // Start building the ICS file
   let icsContent = `BEGIN:VCALENDAR
-  VERSION:2.0
-  PRODID:-//Leave Calendar//EN
-  CALSCALE:GREGORIAN
-  METHOD:PUBLISH
-  `;
+VERSION:2.0
+PRODID:-//Leave Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+`;
 
   fectodoojson.result.forEach(event => {
     const start = formatDate(event.start);
@@ -1124,14 +1124,14 @@ fastify.get('/odooleave', async (req, reply) => {
     const end = formatDate(stop.toISOString());
 
     icsContent += `BEGIN:VEVENT
-  UID:${event.id}@leavecalendar.local
-  DTSTAMP:${start}T000000Z
-  DTSTART;VALUE=DATE:${start}
-  DTEND;VALUE=DATE:${end}
-  SUMMARY:${event.display_name}
-  DESCRIPTION:${event.description || ''}
-  END:VEVENT
-  `;
+UID:${event.id}@leavecalendar.local
+DTSTAMP:${start}T000000Z
+DTSTART;VALUE=DATE:${start}
+DTEND;VALUE=DATE:${end}
+SUMMARY:${event.display_name}
+DESCRIPTION:${event.description || ''}
+END:VEVENT
+`;
   });
 
   icsContent += `END:VCALENDAR\n`;
