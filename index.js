@@ -1035,6 +1035,120 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
   }
 });
 
+fastify.get('/odooleave', async (req, reply) => {
+  // const myHeaders = new Headers();
+  // myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": {
+      "args": [],
+      "model": "calendar.event",
+      "method": "search_read",
+      "kwargs": {
+        "context": {
+          "lang": "en_US",
+          "tz": "Asia/Bangkok",
+          "uid": 23,
+          "allowed_company_ids": [
+            1
+          ]
+        },
+        "domain": [
+          [
+            "start",
+            "<=",
+            "2025-05-10 16:59:59"
+          ],
+          [
+            "stop",
+            ">=",
+            "2025-03-29 17:00:00"
+          ]
+        ],
+        "fields": [
+          "display_name",
+          "start",
+          "duration",
+          "stop",
+          "allday",
+          "attendee_status",
+          "partner_id",
+          "partner_ids",
+          "is_highlighted",
+          "description"
+        ]
+      }
+    },
+    "id": 75041653
+  });
+
+  const requestOptions = {
+    method: "POST",
+    // headers: myHeaders,
+    headers: {
+      "Content-Type": "application/json",
+      "Cookie": "session_id=e821ed249877f432516a5bbbb7ad4c6338f87139"
+    },
+    body: raw,
+    redirect: "manual"
+  };
+
+  // fetch("http://157.230.255.67:8069/web/dataset/call_kw/calendar.event/search_read", requestOptions)
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.error(error));
+
+  const fectodoo = await fetch("http://157.230.255.67:8069/web/dataset/call_kw/calendar.event/search_read", requestOptions);
+  const fectodoojson = await fectodoo.json();
+
+  // Helper to format date into YYYYMMDD
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0].replace(/-/g, '');
+  }
+
+  // Start building the ICS file
+  let icsContent = `BEGIN:VCALENDAR
+  VERSION:2.0
+  PRODID:-//Leave Calendar//EN
+  CALSCALE:GREGORIAN
+  METHOD:PUBLISH
+  `;
+
+  fectodoojson.result.forEach(event => {
+    const start = formatDate(event.start);
+    const stop = new Date(event.stop);
+    stop.setDate(stop.getDate() + 1); // to make end date exclusive
+    const end = formatDate(stop.toISOString());
+
+    icsContent += `BEGIN:VEVENT
+  UID:${event.id}@leavecalendar.local
+  DTSTAMP:${start}T000000Z
+  DTSTART;VALUE=DATE:${start}
+  DTEND;VALUE=DATE:${end}
+  SUMMARY:${event.display_name}
+  DESCRIPTION:${event.description || ''}
+  END:VEVENT
+  `;
+  });
+
+  icsContent += `END:VCALENDAR\n`;
+
+  // Write to .ics file
+  // fs.writeFileSync('leave-calendar.ics', icsContent);
+  // console.log('ICS file created: leave-calendar.ics');
+
+  reply.header('Access-Control-Allow-Origin', '*');
+  // console.log(fectodoojson);
+  // return reply.send(fectodoojson);
+
+  reply.header('Content-Type', 'text/calendar');
+  reply.header('Content-Disposition', 'attachment; filename=leave-calendar.ics');
+  return reply.send(icsContent);
+});
+
 // Run the server!
 const start = async () => {
   try {
