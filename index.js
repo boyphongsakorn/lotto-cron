@@ -1004,7 +1004,7 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
-      await page.waitForTimeout(10000);
+      await page.waitForTimeout(7500);
       const ggtext = await page.evaluate(() => document.body.innerHTML);
       await browser.close();
       const $ = cheerio.load(ggtext);
