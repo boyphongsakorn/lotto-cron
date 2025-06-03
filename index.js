@@ -84,190 +84,190 @@ cron.schedule('15 9 * * *', async () => {
   }
   console.log(thisdayislottery)
   //thisdayislottery = 'yes'
-  if (thisdayislottery == 'yes') {
-    //const rechit = await fetch('https://thai-lottery1.p.rapidapi.com/getchit', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
-    const rechit = await fetch('http://192.168.31.210:5000/getchit');
-    const rechitjson = await rechit.json();
-    //add rechitjson json array to imagearray
-    //imagearray = rechitjson
-    //fetch https://lottsanook-chitai-production.up.railway.app/ai
-    // const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
-    // const responseaijson = await responseai.json();
-    //raw body
-    var raw = JSON.stringify({
-      "messages": [
-        {
-          "type": "flex",
-          "altText": "เลขเด็ดงวดนี้",
-          "contents": {
-            "type": "carousel",
-            "contents": [
-              // {
-              //   "type": "bubble",
-              //   "header": {
-              //     "type": "box",
-              //     "layout": "vertical",
-              //     "contents": [
-              //       {
-              //         "type": "text",
-              //         "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
-              //         "align": "center",
-              //         "weight": "bold"
-              //       }
-              //     ]
-              //   },
-              //   "body": {
-              //     "type": "box",
-              //     "layout": "horizontal",
-              //     "contents": [
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "text",
-              //             "text": "1. " + responseaijson[0].key + "",
-              //             "weight": "bold",
-              //             "size": "3xl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "2. " + responseaijson[1].key + "",
-              //             "size": "xxl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "3. " + responseaijson[2].key + "",
-              //             "size": "xl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "4. " + responseaijson[3].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "5. " + responseaijson[4].key + ""
-              //           }
-              //         ]
-              //       },
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "text",
-              //             "text": "6. " + responseaijson[5].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "7. " + responseaijson[6].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "8. " + responseaijson[7].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "9. " + responseaijson[8].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "10. " + responseaijson[9].key + ""
-              //           }
-              //         ]
-              //       }
-              //     ],
-              //     "paddingBottom": "none"
-              //   },
-              //   "footer": {
-              //     "type": "box",
-              //     "layout": "vertical",
-              //     "contents": [
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "button",
-              //             "action": {
-              //               "type": "uri",
-              //               "label": "ดูเลขเด็ดเพิ่มเติม",
-              //               "uri": "https://lottsanook-chitai-production.up.railway.app/"
-              //             }
-              //           }
-              //         ],
-              //         "backgroundColor": "#FFD700",
-              //         "cornerRadius": "xxl",
-              //         "background": {
-              //           "type": "linearGradient",
-              //           "angle": "0deg",
-              //           "startColor": "#FFD700",
-              //           "endColor": "#ffffff"
-              //         }
-              //       }
-              //     ]
-              //   },
-              //   "styles": {
-              //     "body": {
-              //       "separator": true
-              //     }
-              //   }
-              // },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[0] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[1] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[2] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    });
-    //post to https://api.line.me/v2/bot/message/broadcast
-    const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
-    const responselinejson = await responseline.json();
-    console.log(responselinejson);
-  }
+  // if (thisdayislottery == 'yes') {
+  //   //const rechit = await fetch('https://thai-lottery1.p.rapidapi.com/getchit', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
+  //   const rechit = await fetch('http://192.168.31.210:5000/getchit');
+  //   const rechitjson = await rechit.json();
+  //   //add rechitjson json array to imagearray
+  //   //imagearray = rechitjson
+  //   //fetch https://lottsanook-chitai-production.up.railway.app/ai
+  //   // const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
+  //   // const responseaijson = await responseai.json();
+  //   //raw body
+  //   var raw = JSON.stringify({
+  //     "messages": [
+  //       {
+  //         "type": "flex",
+  //         "altText": "เลขเด็ดงวดนี้",
+  //         "contents": {
+  //           "type": "carousel",
+  //           "contents": [
+  //             // {
+  //             //   "type": "bubble",
+  //             //   "header": {
+  //             //     "type": "box",
+  //             //     "layout": "vertical",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "text",
+  //             //         "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
+  //             //         "align": "center",
+  //             //         "weight": "bold"
+  //             //       }
+  //             //     ]
+  //             //   },
+  //             //   "body": {
+  //             //     "type": "box",
+  //             //     "layout": "horizontal",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "1. " + responseaijson[0].key + "",
+  //             //             "weight": "bold",
+  //             //             "size": "3xl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "2. " + responseaijson[1].key + "",
+  //             //             "size": "xxl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "3. " + responseaijson[2].key + "",
+  //             //             "size": "xl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "4. " + responseaijson[3].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "5. " + responseaijson[4].key + ""
+  //             //           }
+  //             //         ]
+  //             //       },
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "6. " + responseaijson[5].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "7. " + responseaijson[6].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "8. " + responseaijson[7].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "9. " + responseaijson[8].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "10. " + responseaijson[9].key + ""
+  //             //           }
+  //             //         ]
+  //             //       }
+  //             //     ],
+  //             //     "paddingBottom": "none"
+  //             //   },
+  //             //   "footer": {
+  //             //     "type": "box",
+  //             //     "layout": "vertical",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "button",
+  //             //             "action": {
+  //             //               "type": "uri",
+  //             //               "label": "ดูเลขเด็ดเพิ่มเติม",
+  //             //               "uri": "https://lottsanook-chitai-production.up.railway.app/"
+  //             //             }
+  //             //           }
+  //             //         ],
+  //             //         "backgroundColor": "#FFD700",
+  //             //         "cornerRadius": "xxl",
+  //             //         "background": {
+  //             //           "type": "linearGradient",
+  //             //           "angle": "0deg",
+  //             //           "startColor": "#FFD700",
+  //             //           "endColor": "#ffffff"
+  //             //         }
+  //             //       }
+  //             //     ]
+  //             //   },
+  //             //   "styles": {
+  //             //     "body": {
+  //             //       "separator": true
+  //             //     }
+  //             //   }
+  //             // },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[0] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[1] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[2] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             }
+  //           ]
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   //post to https://api.line.me/v2/bot/message/broadcast
+  //   const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+  //   const responselinejson = await responseline.json();
+  //   console.log(responselinejson);
+  // }
   //console.log(imagearray)
   /*await fetch("https://thai-lottery1.p.rapidapi.com/getchit", {
       "method": "GET",
@@ -280,6 +280,247 @@ cron.schedule('15 9 * * *', async () => {
   }).catch(err => {
       console.error(err);
   });*/
+  if (thisdayislottery == 'yes') {
+    const weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
+    const weeknewsjson = await weeknews.json();
+    var raw = {
+      "type": "bubble",
+      "size": "giga",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[0].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[0].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[0].link
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[1].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[1].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[1].link
+                }
+              }
+            ],
+            "paddingAll": "none"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[2].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[2].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[2].link
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[3].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[3].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[3].link
+                }
+              }
+            ],
+            "paddingAll": "none"
+          }
+        ],
+        "paddingAll": "none"
+      }
+    };
+    let altText = "ข่าวเลขเด็ดในงวดนี้";
+    raw = JSON.stringify({
+      "messages": [
+        {
+          "type": "flex",
+          "altText": altText,
+          "contents": {
+            "type": "carousel",
+            "contents": [raw]
+          }
+        }
+      ]
+    })
+    const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+    const responselinejson = await responseline.json();
+    console.log(responselinejson);
+  }
 });
 
 cron.schedule('0-10,50-59 14-17 * * *', async () => {
