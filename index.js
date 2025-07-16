@@ -1330,7 +1330,7 @@ fastify.get('/odooleave', async (req, reply) => {
     // headers: myHeaders,
     headers: {
       "Content-Type": "application/json",
-      "Cookie": "session_id=" + process.env.odoosession
+      "Cookie": "session_id=e821ed249877f432516a5bbbb7ad4c6338f87139"
     },
     body: raw,
     redirect: "manual"
@@ -1389,6 +1389,22 @@ END:VEVENT
   reply.header('Content-Type', 'text/calendar');
   reply.header('Content-Disposition', 'attachment; filename=leave-calendar.ics');
   return reply.send(icsContent);
+});
+
+fastify.get('/twitcharchivevideo', async (req, reply) => {
+  const twitchapitoken = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.TWITCH_CLIENT_ID + '&client_secret=' + process.env.TWITCH_CLIENT_SECRET + '&grant_type=client_credentials', { 'method': 'POST' });
+  const twitchaccessjson = await twitchapitoken.json();
+  const token = twitchaccessjson.access_token;
+  const twitchapi = await fetch('https://api.twitch.tv/helix/videos?user_id=37876518&type=archive', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
+  const twitchapijson = await twitchapi.json();
+  console.log(twitchapijson);
+  if (twitchapijson.data.length > 0) {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(twitchapijson.data);
+  } else {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send('offline');
+  }
 });
 
 // Run the server!
