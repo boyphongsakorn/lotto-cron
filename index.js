@@ -1330,7 +1330,7 @@ fastify.get('/odooleave', async (req, reply) => {
     // headers: myHeaders,
     headers: {
       "Content-Type": "application/json",
-      "Cookie": "session_id=e821ed249877f432516a5bbbb7ad4c6338f87139"
+      "Cookie": "session_id=" + process.env.odoosession
     },
     body: raw,
     redirect: "manual"
