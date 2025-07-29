@@ -24,7 +24,21 @@ const options = {
   password: 'minecraft'
 };
 
+const hardserveroptions = {
+  host: '192.168.31.220',
+  port: process.env.hardport,
+  password: 'minecraft'
+};
+
+const gunserveroptions = {
+  host: '192.168.31.220',
+  port: process.env.gunport,
+  password: 'minecraft'
+};
+
 const rcon = new Rcon(options);
+const hardrcon = new Rcon(hardserveroptions);
+const gunrcon = new Rcon(gunserveroptions);
 
 function getAccessToken() {
   return new Promise(function (resolve, reject) {
@@ -70,190 +84,190 @@ cron.schedule('15 9 * * *', async () => {
   }
   console.log(thisdayislottery)
   //thisdayislottery = 'yes'
-  if (thisdayislottery == 'yes') {
-    //const rechit = await fetch('https://thai-lottery1.p.rapidapi.com/getchit', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
-    const rechit = await fetch('http://192.168.31.210:5000/getchit');
-    const rechitjson = await rechit.json();
-    //add rechitjson json array to imagearray
-    //imagearray = rechitjson
-    //fetch https://lottsanook-chitai-production.up.railway.app/ai
-    // const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
-    // const responseaijson = await responseai.json();
-    //raw body
-    var raw = JSON.stringify({
-      "messages": [
-        {
-          "type": "flex",
-          "altText": "เลขเด็ดงวดนี้",
-          "contents": {
-            "type": "carousel",
-            "contents": [
-              // {
-              //   "type": "bubble",
-              //   "header": {
-              //     "type": "box",
-              //     "layout": "vertical",
-              //     "contents": [
-              //       {
-              //         "type": "text",
-              //         "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
-              //         "align": "center",
-              //         "weight": "bold"
-              //       }
-              //     ]
-              //   },
-              //   "body": {
-              //     "type": "box",
-              //     "layout": "horizontal",
-              //     "contents": [
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "text",
-              //             "text": "1. " + responseaijson[0].key + "",
-              //             "weight": "bold",
-              //             "size": "3xl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "2. " + responseaijson[1].key + "",
-              //             "size": "xxl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "3. " + responseaijson[2].key + "",
-              //             "size": "xl"
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "4. " + responseaijson[3].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "5. " + responseaijson[4].key + ""
-              //           }
-              //         ]
-              //       },
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "text",
-              //             "text": "6. " + responseaijson[5].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "7. " + responseaijson[6].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "8. " + responseaijson[7].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "9. " + responseaijson[8].key + ""
-              //           },
-              //           {
-              //             "type": "text",
-              //             "text": "10. " + responseaijson[9].key + ""
-              //           }
-              //         ]
-              //       }
-              //     ],
-              //     "paddingBottom": "none"
-              //   },
-              //   "footer": {
-              //     "type": "box",
-              //     "layout": "vertical",
-              //     "contents": [
-              //       {
-              //         "type": "box",
-              //         "layout": "vertical",
-              //         "contents": [
-              //           {
-              //             "type": "button",
-              //             "action": {
-              //               "type": "uri",
-              //               "label": "ดูเลขเด็ดเพิ่มเติม",
-              //               "uri": "https://lottsanook-chitai-production.up.railway.app/"
-              //             }
-              //           }
-              //         ],
-              //         "backgroundColor": "#FFD700",
-              //         "cornerRadius": "xxl",
-              //         "background": {
-              //           "type": "linearGradient",
-              //           "angle": "0deg",
-              //           "startColor": "#FFD700",
-              //           "endColor": "#ffffff"
-              //         }
-              //       }
-              //     ]
-              //   },
-              //   "styles": {
-              //     "body": {
-              //       "separator": true
-              //     }
-              //   }
-              // },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[0] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[1] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              },
-              {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "image",
-                      "url": "" + rechitjson[2] + "",
-                      "size": "full"
-                    }
-                  ],
-                  "paddingAll": "none"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    });
-    //post to https://api.line.me/v2/bot/message/broadcast
-    const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
-    const responselinejson = await responseline.json();
-    console.log(responselinejson);
-  }
+  // if (thisdayislottery == 'yes') {
+  //   //const rechit = await fetch('https://thai-lottery1.p.rapidapi.com/getchit', {'method': 'GET', 'headers': {'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com', 'x-rapidapi-key': process.env.RAPIDAPI_KEY}});
+  //   const rechit = await fetch('http://192.168.31.210:5000/getchit');
+  //   const rechitjson = await rechit.json();
+  //   //add rechitjson json array to imagearray
+  //   //imagearray = rechitjson
+  //   //fetch https://lottsanook-chitai-production.up.railway.app/ai
+  //   // const responseai = await fetch('https://lottsanook-chitai.vercel.app/ai');
+  //   // const responseaijson = await responseai.json();
+  //   //raw body
+  //   var raw = JSON.stringify({
+  //     "messages": [
+  //       {
+  //         "type": "flex",
+  //         "altText": "เลขเด็ดงวดนี้",
+  //         "contents": {
+  //           "type": "carousel",
+  //           "contents": [
+  //             // {
+  //             //   "type": "bubble",
+  //             //   "header": {
+  //             //     "type": "box",
+  //             //     "layout": "vertical",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "text",
+  //             //         "text": "10 อันดับเลขดังจาก จะถูกไหมนะ AI",
+  //             //         "align": "center",
+  //             //         "weight": "bold"
+  //             //       }
+  //             //     ]
+  //             //   },
+  //             //   "body": {
+  //             //     "type": "box",
+  //             //     "layout": "horizontal",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "1. " + responseaijson[0].key + "",
+  //             //             "weight": "bold",
+  //             //             "size": "3xl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "2. " + responseaijson[1].key + "",
+  //             //             "size": "xxl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "3. " + responseaijson[2].key + "",
+  //             //             "size": "xl"
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "4. " + responseaijson[3].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "5. " + responseaijson[4].key + ""
+  //             //           }
+  //             //         ]
+  //             //       },
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "6. " + responseaijson[5].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "7. " + responseaijson[6].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "8. " + responseaijson[7].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "9. " + responseaijson[8].key + ""
+  //             //           },
+  //             //           {
+  //             //             "type": "text",
+  //             //             "text": "10. " + responseaijson[9].key + ""
+  //             //           }
+  //             //         ]
+  //             //       }
+  //             //     ],
+  //             //     "paddingBottom": "none"
+  //             //   },
+  //             //   "footer": {
+  //             //     "type": "box",
+  //             //     "layout": "vertical",
+  //             //     "contents": [
+  //             //       {
+  //             //         "type": "box",
+  //             //         "layout": "vertical",
+  //             //         "contents": [
+  //             //           {
+  //             //             "type": "button",
+  //             //             "action": {
+  //             //               "type": "uri",
+  //             //               "label": "ดูเลขเด็ดเพิ่มเติม",
+  //             //               "uri": "https://lottsanook-chitai-production.up.railway.app/"
+  //             //             }
+  //             //           }
+  //             //         ],
+  //             //         "backgroundColor": "#FFD700",
+  //             //         "cornerRadius": "xxl",
+  //             //         "background": {
+  //             //           "type": "linearGradient",
+  //             //           "angle": "0deg",
+  //             //           "startColor": "#FFD700",
+  //             //           "endColor": "#ffffff"
+  //             //         }
+  //             //       }
+  //             //     ]
+  //             //   },
+  //             //   "styles": {
+  //             //     "body": {
+  //             //       "separator": true
+  //             //     }
+  //             //   }
+  //             // },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[0] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[1] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             },
+  //             {
+  //               "type": "bubble",
+  //               "body": {
+  //                 "type": "box",
+  //                 "layout": "vertical",
+  //                 "contents": [
+  //                   {
+  //                     "type": "image",
+  //                     "url": "" + rechitjson[2] + "",
+  //                     "size": "full"
+  //                   }
+  //                 ],
+  //                 "paddingAll": "none"
+  //               }
+  //             }
+  //           ]
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   //post to https://api.line.me/v2/bot/message/broadcast
+  //   const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+  //   const responselinejson = await responseline.json();
+  //   console.log(responselinejson);
+  // }
   //console.log(imagearray)
   /*await fetch("https://thai-lottery1.p.rapidapi.com/getchit", {
       "method": "GET",
@@ -266,6 +280,247 @@ cron.schedule('15 9 * * *', async () => {
   }).catch(err => {
       console.error(err);
   });*/
+  if (thisdayislottery == 'yes') {
+    const weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
+    const weeknewsjson = await weeknews.json();
+    var raw = {
+      "type": "bubble",
+      "size": "giga",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[0].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[0].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[0].link
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[1].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[1].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[1].link
+                }
+              }
+            ],
+            "paddingAll": "none"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[2].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[2].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[2].link
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": weeknewsjson[3].image,
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1",
+                    "animated": true
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": weeknewsjson[3].title,
+                        "color": "#ffffff",
+                        "size": "lg",
+                        "maxLines": 2,
+                        "weight": "bold",
+                        "wrap": true,
+                        "align": "center",
+                        "offsetBottom": "5px"
+                      }
+                    ],
+                    "position": "absolute",
+                    "offsetBottom": "none",
+                    "background": {
+                      "type": "linearGradient",
+                      "angle": "0deg",
+                      "startColor": "#000000",
+                      "endColor": "#00000000"
+                    },
+                    "width": "100%",
+                    "alignItems": "center",
+                    "height": "25%",
+                    "justifyContent": "flex-end"
+                  }
+                ],
+                "paddingAll": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": weeknewsjson[3].link
+                }
+              }
+            ],
+            "paddingAll": "none"
+          }
+        ],
+        "paddingAll": "none"
+      }
+    };
+    let altText = "ข่าวเลขเด็ดในงวดนี้";
+    raw = JSON.stringify({
+      "messages": [
+        {
+          "type": "flex",
+          "altText": altText,
+          "contents": {
+            "type": "carousel",
+            "contents": [raw]
+          }
+        }
+      ]
+    })
+    const responseline = await fetch('https://api.line.me/v2/bot/message/broadcast', { 'method': 'POST', 'headers': { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.LINE_TOKEN }, 'body': raw });
+    const responselinejson = await responseline.json();
+    console.log(responselinejson);
+  }
 });
 
 cron.schedule('0-10,50-59 14-17 * * *', async () => {
@@ -762,6 +1017,42 @@ fastify.get('/sendrcon', async (req, reply) => {
   return reply.send('ok');
 });
 
+fastify.get('/sendpoweroutagealert', async (req, reply) => {
+  const message = req.query.message;
+  // rcon.connect().then(() => {
+  //   rcon.send('broadcast ' + message);
+  //   rcon.end();
+  // }).catch((err) => {
+  //   console.log(err);
+  //   return err;
+  // });
+  hardrcon.connect().then(() => {
+    hardrcon.send('say ' + message).then(() => {
+      hardrcon.end();
+    }).catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }).catch((err) => {
+    console.log(err);
+    return err;
+  });
+  gunrcon.connect().then(() => {
+    gunrcon.send('say ' + message).then(() => {
+      gunrcon.end();
+    }).catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }).catch((err) => {
+    console.log(err);
+    return err;
+  });
+  //setheader accept only localhost
+  reply.header('Access-Control-Allow-Origin', 'http://localhost:9400');
+  return reply.send('ok');
+});
+
 fastify.get('/gettempbyopenai', async (req, reply) => {
   const roomtemp = req.query.roomtemp;
   const aircontempset = req.query.aircontempset;
@@ -792,7 +1083,7 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   //   return reply.send(body);
   // });
   try {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
+    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new" });
     const page = await browser.newPage();
     await page.goto('https://iask.ai/?mode=academic&q=i+want+number+answer+only%2C+If+room+temperature+is+' + roomtemp + '%C2%B0C+and+outside+temperature+is+' + outsidetemp + '%2C+what+temperature+should+the+air+conditioning+be+set+to+in+order+to+achieve+a+room+temperature+of+' + whattempwant + '%C2%B0C%3F+');
     //wait 10 second
@@ -827,60 +1118,294 @@ fastify.get('/gettempbyopenai', async (req, reply) => {
   }
 });
 
-fastify.get('/openmainrouterwifi', async (req, reply) => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1920, height: 1080 });
-  await page.goto('http://192.168.31.1/Main_Login.asp');
-  await page.waitForTimeout(5000);
-  await page.type('#login_username', 'admin');
-  // type on div name login_passwd
-  await page.$eval('input[name=login_passwd]', (el, value) => el.value = value, 'Team1556th_');
-  //use function login()
-  await page.evaluate(() => {
-    login();
-  });
-  await page.waitForTimeout(5000);
-  //change url to http://192.168.31.1/Advanced_WAdvanced_Content.asp
-  await page.goto('http://192.168.31.1/Advanced_WAdvanced_Content.asp');
-  await page.waitForTimeout(5000);
-  if (req.query.wifi) {
-    if (req.query.wifi == 'on') {
-      await page.click('input[name=wl_radio][value="1"]');
-    } else if (req.query.wifi == 'off') {
-      await page.click('input[name=wl_radio][value="0"]');
-    } else {
-      await page.click('input[name=wl_radio][value="1"]');
-    }
+// fastify.get('/openmainrouterwifi', async (req, reply) => {
+//   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] });
+//   const page = await browser.newPage();
+//   await page.setViewport({ width: 1920, height: 1080 });
+//   await page.goto('http://192.168.31.1/Main_Login.asp');
+//   await page.waitForTimeout(5000);
+//   await page.type('#login_username', 'admin');
+//   // type on div name login_passwd
+//   await page.$eval('input[name=login_passwd]', (el, value) => el.value = value, 'Team1556th_');
+//   //use function login()
+//   await page.evaluate(() => {
+//     login();
+//   });
+//   await page.waitForTimeout(5000);
+//   //change url to http://192.168.31.1/Advanced_WAdvanced_Content.asp
+//   await page.goto('http://192.168.31.1/Advanced_WAdvanced_Content.asp');
+//   await page.waitForTimeout(5000);
+//   if (req.query.wifi) {
+//     if (req.query.wifi == 'on') {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     } else if (req.query.wifi == 'off') {
+//       await page.click('input[name=wl_radio][value="0"]');
+//     } else {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     }
+//   } else {
+//     //if input name wl_radio value 1 is checked
+//     if (await page.$eval('input[name=wl_radio][value="1"]', el => el.checked)) {
+//       await page.click('input[name=wl_radio][value="0"]');
+//     } else {
+//       await page.click('input[name=wl_radio][value="1"]');
+//     }
+//   }
+//   //use function applyRule()
+//   await page.evaluate(() => {
+//     applyRule();
+//   });
+//   await page.waitForTimeout(5000);
+//   //use function logout() and click ok on alert
+//   await page.evaluate(() => {
+//     logout();
+//   });
+//   await page.waitForTimeout(5000);
+//   await page.on('dialog', async dialog => {
+//     await dialog.accept();
+//   });
+//   //get html
+//   // const html = await page.content();
+//   // console.log(html);
+//   await browser.close();
+//   reply.header('Access-Control-Allow-Origin', '*');
+//   return reply.send('ok');
+// });
+
+fastify.get('/twitchstatus', async (req, reply) => {
+  const twitchapitoken = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.TWITCH_CLIENT_ID + '&client_secret=' + process.env.TWITCH_CLIENT_SECRET + '&grant_type=client_credentials', { 'method': 'POST' });
+  const twitchaccessjson = await twitchapitoken.json();
+  const token = twitchaccessjson.access_token;
+  const twitchapi = await fetch('https://api.twitch.tv/helix/streams?user_login=boyalone99', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
+  const twitchapijson = await twitchapi.json();
+  console.log(twitchapijson);
+  if (twitchapijson.data.length > 0) {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(twitchapijson.data[0]);
   } else {
-    //if input name wl_radio value 1 is checked
-    if (await page.$eval('input[name=wl_radio][value="1"]', el => el.checked)) {
-      await page.click('input[name=wl_radio][value="0"]');
-    } else {
-      await page.click('input[name=wl_radio][value="1"]');
-    }
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send('offline');
   }
-  //use function applyRule()
-  await page.evaluate(() => {
-    applyRule();
-  });
-  await page.waitForTimeout(5000);
-  //use function logout() and click ok on alert
-  await page.evaluate(() => {
-    logout();
-  });
-  await page.waitForTimeout(5000);
-  await page.on('dialog', async dialog => {
-    await dialog.accept();
-  });
-  //get html
-  // const html = await page.content();
-  // console.log(html);
-  await browser.close();
-  reply.header('Access-Control-Allow-Origin', '*');
-  return reply.send('ok');
 });
 
+fastify.get('/fortniteitemshop', async (req, reply) => {
+  //if file fortniteitemshop.json not exist
+  if (!fs.existsSync('fortniteitemshop.json')) {
+    const headers = {
+      'Authorization': process.env.FORTNITE_API_IO_KEY
+    }
+    const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
+    const fortniteitemshopjson = await fortniteitemshop.json();
+    let ggtext = '';
+    try{
+      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 480000, protocolTimeout: 480000 });
+      const page = await browser.newPage();
+      await page.goto('https://fortnite.gg/shop');
+      //wait 10 second
+      await page.waitForTimeout(5000);
+      ggtext = await page.evaluate(() => document.body.innerHTML);
+      await browser.close();
+    } catch (error) {
+      const ggshop = await fetch('https://fortnite.gg/shop');
+      ggtext = await ggshop.text();
+    }
+    const $ = cheerio.load(ggtext);
+    for (let i = 0; i < fortniteitemshopjson.shop.length; i++) {
+      if(fortniteitemshopjson.shop[i].displayType != 'Music' && fortniteitemshopjson.shop[i].mainType != 'bundle') {
+        //find image that have alt text same as 'Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName
+        const img = $('img[alt="Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName + '"]');
+        //get src of img
+        const imgsrc = img.attr('src');
+        console.log(fortniteitemshopjson.shop[i].displayName);
+        console.log(imgsrc);
+        if (imgsrc) {
+          fortniteitemshopjson.shop[i].video = 'https://fnggcdn.com' + imgsrc.replace('img/', '').replace('icon.png', 'video.mp4');
+        } else {
+          fortniteitemshopjson.shop[i].video = '';
+        }
+      } else {
+        fortniteitemshopjson.shop[i].video = '';
+      }
+    }
+    //write to file
+    fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(fortniteitemshopjson);
+  } else {
+    //read file
+    const fortniteitemshopjson = JSON.parse(fs.readFileSync('fortniteitemshop.json'));
+    //if now after 7am and exist file write before today 7am
+    if (new Date().getHours() >= 7 && fs.statSync('fortniteitemshop.json').mtime < new Date().setHours(7, 0, 0, 0)) {
+      const headers = {
+        'Authorization': process.env.FORTNITE_API_IO_KEY
+      }
+      const fortniteitemshop = await fetch('https://fortniteapi.io/v2/shop?lang=th&includeRenderData=true', { 'headers': headers });
+      const fortniteitemshopjson = await fortniteitemshop.json();
+      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 300000, protocolTimeout: 300000 });
+      const page = await browser.newPage();
+      await page.goto('https://fortnite.gg/shop');
+      //wait 10 second
+      await page.waitForTimeout(7500);
+      const ggtext = await page.evaluate(() => document.body.innerHTML);
+      await browser.close();
+      const $ = cheerio.load(ggtext);
+      for (let i = 0; i < fortniteitemshopjson.shop.length; i++) {
+        if(fortniteitemshopjson.shop[i].displayType != 'Music' && fortniteitemshopjson.shop[i].mainType != 'bundle') {
+          //find image that have alt text same as 'Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName
+          const img = $('img[alt="Fortnite Item Shop ' + fortniteitemshopjson.shop[i].displayName + '"]');
+          //get src of img
+          const imgsrc = img.attr('src');
+          console.log(fortniteitemshopjson.shop[i].displayName);
+          console.log(imgsrc);
+          if (imgsrc) {
+            fortniteitemshopjson.shop[i].video = 'https://fnggcdn.com' + imgsrc.replace('img/', '').replace('icon.png', 'video.mp4');
+          } else {
+            fortniteitemshopjson.shop[i].video = '';
+          }
+        } else {
+          fortniteitemshopjson.shop[i].video = '';
+        }
+      }
+      //write to file
+      fs.writeFileSync('fortniteitemshop.json', JSON.stringify(fortniteitemshopjson));
+      reply.header('Access-Control-Allow-Origin', '*');
+      return reply.send(fortniteitemshopjson);
+    }
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(fortniteitemshopjson);
+  }
+});
+
+fastify.get('/odooleave', async (req, reply) => {
+  // const myHeaders = new Headers();
+  // myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": {
+      "args": [],
+      "model": "calendar.event",
+      "method": "search_read",
+      "kwargs": {
+        "context": {
+          "lang": "en_US",
+          "tz": "Asia/Bangkok",
+          "uid": 23,
+          "allowed_company_ids": [
+            1
+          ]
+        },
+        "domain": [
+          [
+            "start",
+            "<=",
+            "2025-12-31 16:59:59"
+          ],
+          [
+            "stop",
+            ">=",
+            "2025-01-01 17:00:00"
+          ]
+        ],
+        "fields": [
+          "display_name",
+          "start",
+          "duration",
+          "stop",
+          "allday",
+          "attendee_status",
+          "partner_id",
+          "partner_ids",
+          "is_highlighted",
+          "description"
+        ]
+      }
+    },
+    "id": 75041653
+  });
+
+  const requestOptions = {
+    method: "POST",
+    // headers: myHeaders,
+    headers: {
+      "Content-Type": "application/json",
+      "Cookie": "session_id=" + process.env.odoosession
+    },
+    body: raw,
+    redirect: "manual"
+  };
+
+  // fetch("http://157.230.255.67:8069/web/dataset/call_kw/calendar.event/search_read", requestOptions)
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.error(error));
+
+  const fectodoo = await fetch("http://157.230.255.67:8069/web/dataset/call_kw/calendar.event/search_read", requestOptions);
+  const fectodoojson = await fectodoo.json();
+
+  // Helper to format date into YYYYMMDD
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0].replace(/-/g, '');
+  }
+
+  // Start building the ICS file
+  let icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Leave Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+`;
+
+  fectodoojson.result.forEach(event => {
+    const start = formatDate(event.start);
+    const stop = new Date(event.stop);
+    stop.setDate(stop.getDate() + 1); // to make end date exclusive
+    const end = formatDate(stop.toISOString());
+
+    icsContent += `BEGIN:VEVENT
+UID:${event.id}@leavecalendar.local
+DTSTAMP:${start}T000000Z
+DTSTART;VALUE=DATE:${start}
+DTEND;VALUE=DATE:${end}
+SUMMARY:${event.display_name}
+DESCRIPTION:${event.description || ''}
+TRANSP:TRANSPARENT
+END:VEVENT
+`;
+  });
+
+  icsContent += `END:VCALENDAR\n`;
+
+  // Write to .ics file
+  // fs.writeFileSync('leave-calendar.ics', icsContent);
+  // console.log('ICS file created: leave-calendar.ics');
+
+  reply.header('Access-Control-Allow-Origin', '*');
+  // console.log(fectodoojson);
+  // return reply.send(fectodoojson);
+
+  reply.header('Content-Type', 'text/calendar');
+  reply.header('Content-Disposition', 'attachment; filename=leave-calendar.ics');
+  return reply.send(icsContent);
+});
+
+fastify.get('/twitcharchivevideo', async (req, reply) => {
+  const twitchapitoken = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.TWITCH_CLIENT_ID + '&client_secret=' + process.env.TWITCH_CLIENT_SECRET + '&grant_type=client_credentials', { 'method': 'POST' });
+  const twitchaccessjson = await twitchapitoken.json();
+  const token = twitchaccessjson.access_token;
+  const twitchapi = await fetch('https://api.twitch.tv/helix/videos?user_id=37876518&type=archive', { 'headers': { 'Client-ID': process.env.TWITCH_CLIENT_ID, 'Authorization': 'Bearer ' + token } });
+  const twitchapijson = await twitchapi.json();
+  console.log(twitchapijson);
+  if (twitchapijson.data.length > 0) {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send(twitchapijson.data);
+  } else {
+    reply.header('Access-Control-Allow-Origin', '*');
+    return reply.send('offline');
+  }
+});
 
 // Run the server!
 const start = async () => {

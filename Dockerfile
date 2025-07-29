@@ -1,4 +1,5 @@
 FROM node:18-alpine
+RUN apk add --no-cache nss freetype harfbuzz ca-certificates ttf-freefont
 RUN apk add --no-cache font-noto-thai && apk add --no-cache libevent libevent-dev chromium --repository=http://dl-cdn.alpinelinux.org/alpine/v3.10/community
 WORKDIR '/app'
 COPY package*.json ./
@@ -18,6 +19,6 @@ COPY pnpm-*.yaml ./
 # RUN pnpm fetch --prod
 ADD . ./
 # RUN pnpm install -r --offline --prod
-run pnpm install --no-frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 CMD ["node","index.js"]
