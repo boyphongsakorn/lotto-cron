@@ -1048,6 +1048,27 @@ fastify.get('/sendpoweroutagealert', async (req, reply) => {
     console.log(err);
     return err;
   });
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Basic " + process.env.palworldauth);
+
+  const raw = JSON.stringify({
+    "message": message
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "manual"
+  };
+
+  fetch("http://192.168.31.220:18220/v1/api/announce", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+
   //setheader accept only localhost
   reply.header('Access-Control-Allow-Origin', 'http://localhost:9400');
   return reply.send('ok');
