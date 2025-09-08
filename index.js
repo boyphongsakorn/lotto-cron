@@ -1069,6 +1069,11 @@ fastify.get('/sendpoweroutagealert', async (req, reply) => {
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
 
+  fetch("http://192.168.31.220:18212/v1/api/announce", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+
   //setheader accept only localhost
   reply.header('Access-Control-Allow-Origin', 'http://localhost:9400');
   return reply.send('ok');
