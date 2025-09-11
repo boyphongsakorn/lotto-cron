@@ -9,7 +9,7 @@ const cheerio = require('cheerio');
 const { google } = require('googleapis');
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./firebase-adminsdk.json");
+var serviceAccount = require("/firebase/adminsdk.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -42,7 +42,7 @@ const gunrcon = new Rcon(gunserveroptions);
 
 function getAccessToken() {
   return new Promise(function (resolve, reject) {
-    const key = require("./firebase-adminsdk.json");
+    const key = require("/firebase/adminsdk.json");
     const jwtClient = new google.auth.JWT(
       key.client_email,
       null,
