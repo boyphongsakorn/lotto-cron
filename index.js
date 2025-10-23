@@ -1224,11 +1224,11 @@ fastify.get('/fortniteitemshop', async (req, reply) => {
     const fortniteitemshopjson = await fortniteitemshop.json();
     let ggtext = '';
     try{
-      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 480000, protocolTimeout: 480000 });
+      const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'], headless: "new", timeout: 300000, protocolTimeout: 300000 });
       const page = await browser.newPage();
       await page.goto('https://fortnite.gg/shop');
       //wait 10 second
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(7500);
       ggtext = await page.evaluate(() => document.body.innerHTML);
       await browser.close();
     } catch (error) {
