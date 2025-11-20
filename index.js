@@ -281,8 +281,12 @@ cron.schedule('15 9 * * *', async () => {
       console.error(err);
   });*/
   if (thisdayislottery == 'yes') {
-    const weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
-    const weeknewsjson = await weeknews.json();
+    let weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
+    let weeknewsjson = await weeknews.json();
+    if (Array.isArray(weeknewsjson) && weeknewsjson.length === 0) {
+      weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4')
+      weeknewsjson = await weeknews.json();
+    }
     var raw = {
       "type": "bubble",
       "size": "giga",
@@ -724,8 +728,12 @@ cron.schedule('0 11 * * *', async () => {
 });
 
 cron.schedule('30 10 * * 0', async () => {
-  const weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
-  const weeknewsjson = await weeknews.json();
+  let weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4&lastweek=true')
+  let weeknewsjson = await weeknews.json();
+  if (Array.isArray(weeknewsjson) && weeknewsjson.length === 0) {
+    weeknews = await fetch('https://lotapi.pwisetthon.com/lotnews?count=4')
+    weeknewsjson = await weeknews.json();
+  }
   var raw = {
     "type": "bubble",
     "size": "giga",
