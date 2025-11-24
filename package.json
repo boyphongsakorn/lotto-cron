@@ -13,7 +13,7 @@
     "chatgpt": "^5.2.5",
     "cheerio": "1.0.0-rc.12",
     "dotenv": "^16.6.1",
-    "fastify": "^4.29.1",
+    "fastify": "^5.6.1",
     "firebase-admin": "^12.7.0",
     "googleapis": "^137.1.0",
     "node-cron": "^3.0.3",
